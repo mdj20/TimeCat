@@ -14,10 +14,8 @@ public class ProfileSetupActivityTest extends TestCase {
 
 
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
+
+
 
     public void testContainsNullValue() throws Exception {
 
