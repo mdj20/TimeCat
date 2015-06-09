@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 
@@ -18,13 +19,13 @@ public class ProfileSetupActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(cs1530.timecat.R.layout.activity_profile_setup);
+        setContentView(R.layout.activity_profile_setup);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(cs1530.timecat.R.menu.menu_profile_setup, menu);
+        getMenuInflater().inflate(R.menu.menu_profile_setup, menu);
         return true;
     }
 
@@ -36,7 +37,7 @@ public class ProfileSetupActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == cs1530.timecat.R.id.action_settings) {
+        if (id == R.id.action_settings) {
             return true;
         }
 
@@ -48,34 +49,56 @@ public class ProfileSetupActivity extends ActionBarActivity {
     // must hava a value in all integer fields
     public void setValues(View view) {
 
+        ArrayList<EditText> timeInputViews = new ArrayList<EditText>();
+
+
 
         // editTexts from layouts
-        View val0 = findViewById(cs1530.timecat.R.id.time_input_0);
-        View val1 = findViewById(cs1530.timecat.R.id.time_input_1);
-        View val2 = findViewById(cs1530.timecat.R.id.time_input_2);
-        View val3 = findViewById(cs1530.timecat.R.id.time_input_2);
-        View val4 = findViewById(cs1530.timecat.R.id.time_input_4);
-
-        // arraylist for integer values
-        ArrayList<Integer> timeValueArrayList = new ArrayList<Integer>();
-
-        //add Integers to arraylists
-        timeValueArrayList.add( new Integer(val0.toString()));
-        timeValueArrayList.add( new Integer(val1.toString()));
-        timeValueArrayList.add( new Integer(val2.toString()));
-        timeValueArrayList.add( new Integer(val3.toString()));
-        timeValueArrayList.add( new Integer(val4.toString()));
-
-        // create new Intent to start time display activity connects this to next
-        Intent timerIntent = new Intent(this, TimerDisplayActivity.class);
-
-        // add values to intent
-        timerIntent.putExtra(timeValuesID, timeValueArrayList);
-
-        // start Start activity
-        startActivity(timerIntent);
+        timeInputViews.add( (EditText) findViewById(R.id.time_input_0));
+        timeInputViews.add( (EditText) findViewById(R.id.time_input_1));
+        timeInputViews.add( (EditText) findViewById(R.id.time_input_2));
+        timeInputViews.add( (EditText) findViewById(R.id.time_input_2));
+        timeInputViews.add( (EditText) findViewById(R.id.time_input_4));
 
 
+        // null value check ; will only exicute below code if timeInputViews doesnt contain and nulls
+        if (containsNullValue(timeInputViews)==false) {
+
+            // arraylist for integer values
+            ArrayList<Integer> timeValueArrayList = new ArrayList<Integer>();
+
+
+
+            for (EditText et : timeInputViews) {
+                timeValueArrayList.add(new Integer( et.getText().toString()));
+            }
+
+            // create new Intent to start time display activity connects this to next
+            Intent timerIntent = new Intent(this, TimerDisplayActivity.class);
+
+            // add values to intent
+            timerIntent.putExtra(timeValuesID, timeValueArrayList);
+
+            // start Start activity
+            startActivity(timerIntent);
+        }
+
+    }
+
+    //returns true if and editText is blank contains
+    private boolean containsNullValue(ArrayList<EditText> editTextList ){
+
+        boolean result = false;
+
+        for(EditText et : editTextList){
+
+
+            result = et.getText().toString().equals("") || result;
+
+
+        }
+
+        return result;
     }
 
 }
