@@ -14,9 +14,6 @@ public class ProfileSetupActivityTest extends TestCase {
 
 
 
-
-
-
     public void testContainsNullValue() throws Exception {
 
         boolean result;
