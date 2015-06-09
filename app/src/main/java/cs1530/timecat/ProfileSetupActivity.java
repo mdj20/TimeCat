@@ -61,10 +61,10 @@ public class ProfileSetupActivity extends ActionBarActivity {
         timeInputViews.add( (EditText) findViewById(R.id.time_input_4));
 
 
-        // null value check ; will only exicute below code if timeInputViews doesnt contain and nulls
+        // null value check ; will only execute below code if timeInputViews doesn't contain and nulls
         if (containsNullValue(timeInputViews)==false) {
 
-            // arraylist for integer values
+            // ArrayList for integer values
             ArrayList<Integer> timeValueArrayList = new ArrayList<Integer>();
 
 
@@ -85,8 +85,8 @@ public class ProfileSetupActivity extends ActionBarActivity {
 
     }
 
-    //returns true if and editText is blank contains
-    private boolean containsNullValue(ArrayList<EditText> editTextList ){
+    //returns true if editText is blank
+    public boolean containsNullValue(ArrayList<EditText> editTextList ){
 
         boolean result = false;
 
@@ -97,6 +97,26 @@ public class ProfileSetupActivity extends ActionBarActivity {
 
 
         }
+
+
+
+        return result;
+    }
+
+    //returns true if editText is blank
+    public boolean containsNullValueString(ArrayList<String> inStringList ){
+
+        boolean result = false;
+
+        for(String s : inStringList){
+
+
+            result = s.equals("") || result;
+
+
+        }
+
+
 
         return result;
     }
