@@ -5,10 +5,11 @@ app/src/main
 Java source:
 ../main/java/
 
-Layouts fils/ xml:
+Layouts files/xml:
 /main/res/layout
 
 
-Testing source code:app/src/testing/cs1530/timecat/
+Testing source code:
+app/src/testing/cs1530/timecat/
 
 
