@@ -1,5 +1,6 @@
 package cs1530.timecat;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,6 +10,8 @@ import android.widget.NumberPicker;
 import cs1530.timecat.R;
 
 public class TimerInfoInputActivity extends ActionBarActivity {
+
+    private static final String timeValuesID = "profileBuilder";
 
     NumberPicker numberPickers[];
 
@@ -22,9 +25,11 @@ public class TimerInfoInputActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer_info_input);
 
+        Intent intent = getIntent();
 
+        
 
-        // initialise parameters
+        //initialise parameters
 
         setNumberPickerParameters();
 
@@ -55,7 +60,9 @@ public class TimerInfoInputActivity extends ActionBarActivity {
     }
 
 
-    private void saveValues
+    private void saveValues(){
+
+    }
 
 
     // initialize numberPickers and sets min max value parameters
