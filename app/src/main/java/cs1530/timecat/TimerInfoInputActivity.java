@@ -22,10 +22,11 @@ public class TimerInfoInputActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer_info_input);
 
+
+
+        // initialise parameters
+
         setNumberPickerParameters();
-
-
-
 
 
 
@@ -54,14 +55,19 @@ public class TimerInfoInputActivity extends ActionBarActivity {
     }
 
 
+    private void saveValues
+
+
     // initialize numberPickers and sets min max value parameters
     private void setNumberPickerParameters(){
 
-        for (int i = 0 ; i < 3 ; i ++ ){
-            numberPickers[i] = new NumberPicker(getApplication());
-        }
+        numberPickers[0] = (NumberPicker) findViewById(R.id.hourPicker);
+        numberPickers[1] = (NumberPicker) findViewById(R.id.minutePicker);
+        numberPickers[2] = (NumberPicker) findViewById(R.id.secondPicker);
+
         // initialize with Application environment
 
+        // max hours is 100/
         setMinMax(numberPickers[0],0,100);
         setMinMax(numberPickers[1],0,59);
         setMinMax(numberPickers[2],0,59);
@@ -72,6 +78,7 @@ public class TimerInfoInputActivity extends ActionBarActivity {
         }
     }
 
+    // sets min and max values
     private void setMinMax(NumberPicker np, int min ,int max){
         np.setMinValue(min);
         np.setMaxValue(max);
