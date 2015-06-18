@@ -10,9 +10,8 @@ import cs1530.timecat.R;
 
 public class TimerInfoInputActivity extends ActionBarActivity {
 
-    NumberPicker hourPicker;
-    NumberPicker minutePicker;
-    NumberPicker secondPicker;
+    NumberPicker numberPickers[];
+
 
 
 
@@ -23,7 +22,7 @@ public class TimerInfoInputActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer_info_input);
 
-        setNumberPickerValues();
+        setNumberPickerParameters();
 
 
 
@@ -55,18 +54,22 @@ public class TimerInfoInputActivity extends ActionBarActivity {
     }
 
 
-    // initalize numberpickers and sets min max value parameters
-    private void setNumberPickerValues(){
+    // initialize numberPickers and sets min max value parameters
+    private void setNumberPickerParameters(){
 
+        for (int i = 0 ; i < 3 ; i ++ ){
+            numberPickers[i] = new NumberPicker(getApplication());
+        }
         // initialize with Application environment
-        hourPicker = new NumberPicker(getApplication());
-        minutePicker = new NumberPicker(getApplication());
-        secondPicker = new NumberPicker(getApplication());
 
-        setMinMax(hourPicker,0,100);
-        setMinMax(minutePicker,0,59);
-        setMinMax(secondPicker,0,59);
+        setMinMax(numberPickers[0],0,100);
+        setMinMax(numberPickers[1],0,59);
+        setMinMax(numberPickers[2],0,59);
 
+        // makes number picker wrap contents
+        for (int i = 0 ; i < 3 ; i ++ ){
+            numberPickers[i].setWrapSelectorWheel(true);
+        }
     }
 
     private void setMinMax(NumberPicker np, int min ,int max){
