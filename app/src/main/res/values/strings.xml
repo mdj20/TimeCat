@@ -5,4 +5,5 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_timer_array">TimerArrayActivity</string>
     <string name="title_activity_timer_display">TimerDisplayActivity</string>
+    <string name="title_activity_timer_info_input">TimerInfoInputActivity</string>
 </resources>

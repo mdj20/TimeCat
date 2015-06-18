@@ -1,5 +1,7 @@
 package cs1530.timecat;
 
+import java.util.ArrayList;
+
 /**
  * Created by matthew on 6/17/15.
  *
@@ -8,8 +10,10 @@ package cs1530.timecat;
  *  It will act as a container for time steps and provide methods for
  *  organizing the time steps
  *
+ *  also it may, provide utilities for saving info sqlite etc.
  */
-public class ProcedureBuilder {
+public class ProcedureBuilder extends ArrayList<TimeStepInfo> {
+
 
 
 

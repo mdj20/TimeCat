@@ -3,13 +3,22 @@
     package="cs1530.timecat" >
 
     <uses-sdk android:minSdkVersion="11" />
+
+    <android:uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="cs1530.timecat.ProfileSetupActivity"
+            android:name=".ProfileSetupActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,8 +27,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="cs1530.timecat.TimerDisplayActivity"
+            android:name=".TimerDisplayActivity"
             android:label="@string/title_activity_timer_display" >
+        </activity>
+        <activity
+            android:name=".TimerInfoInputActivity"
+            android:label="@string/title_activity_timer_info_input" >
         </activity>
     </application>
 

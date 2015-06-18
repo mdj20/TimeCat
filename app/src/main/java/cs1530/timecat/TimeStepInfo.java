@@ -1,16 +1,22 @@
 package cs1530.timecat;
 
 /**
- * Created by matthew on 6/17/15.
+ *  Created by matthew on 6/17/15.
+ *
+ *  This class is the timer building block
+ *
+ *  provides data fields for
+ *
+ *
  */
 public class TimeStepInfo implements Comparable<TimeStepInfo> {
 
 
 
-        // dateTime object ?
+        // dateTime object mayu be use in the future Maybe?
         private long duration;
 
-        // use once ID value
+        // use once ID value (not implemented yet, but these should have a unique id number)
         private int id;
 
         // can be set from index
@@ -45,7 +51,6 @@ public class TimeStepInfo implements Comparable<TimeStepInfo> {
         }
 
         public String getNotes(){
-
             return this.notes;
         }
 
@@ -76,8 +81,7 @@ public class TimeStepInfo implements Comparable<TimeStepInfo> {
             return priority;
         }
 
-        // Comparable req (must ad d code for edge cases and null object value)
-
+        // Comparable req (must add code for edge cases and null object value)
         public int compareTo( TimeStepInfo in ){
 
             return this.priority - in.priority;
