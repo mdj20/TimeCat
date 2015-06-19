@@ -38,10 +38,6 @@ public class TimerInfoInputActivity extends ActionBarActivity {
         procedureBuilder = new ProcedureBuilder();
 
 
-
-
-
-
     }
 
     @Override
@@ -67,14 +63,32 @@ public class TimerInfoInputActivity extends ActionBarActivity {
     }
 
 
-    private void saveValues(){
+    private void saveAndNext(){
+        
+        TimeStepInfo tsi = valuesToObject();
+        procedureBuilder.add(tsi);
+        resetAllInput();
+    }
+
+    private void saveAndFinish()
+    {
+
+    }
 
 
+    // constructs TimeStepInfo from view values
+    private TimeStepInfo valuesToObject(){
 
+        int hours   = numberPickers[0].getValue();
+        int minutes = numberPickers[1].getValue();
+        int seconds = numberPickers[2].getValue();
 
-        //TimeStepInfo timeStepInfo = new TimeStepInfo()
+        //converts values to
+        int durationInSeconds = ((hours*60)+minutes)*60+seconds;
 
+        TimeStepInfo timeStepInfo = new TimeStepInfo(durationInSeconds,procedureBuilder.size(),procedureBuilder.size(),name.getText().toString(),info.getText().toString());
 
+        return timeStepInfo;
     }
 
 
@@ -89,8 +103,8 @@ public class TimerInfoInputActivity extends ActionBarActivity {
 
         // initialize with Application environment
 
-        // max hours is 100/
-        setMinMax(numberPickers[0],0,100);
+        // max hours is 10 for now...
+        setMinMax(numberPickers[0],0,10);
         setMinMax(numberPickers[1],0,59);
         setMinMax(numberPickers[2],0,59);
 

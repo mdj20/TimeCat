@@ -60,7 +60,8 @@
         android:text="Next"
         android:id="@+id/buttonNext"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:onClick="saveAndNext" />
 
     <Button
         android:layout_width="wrap_content"
