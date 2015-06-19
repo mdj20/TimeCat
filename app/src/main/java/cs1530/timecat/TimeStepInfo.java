@@ -47,9 +47,7 @@ public class TimeStepInfo implements Comparable<TimeStepInfo> , Parcelable {
         }
 
 
-        TimeStepInfo(Parcel in ){
-
-        }
+ 
 
 
         // Data Methods
@@ -110,12 +108,10 @@ public class TimeStepInfo implements Comparable<TimeStepInfo> , Parcelable {
         public void writeToParcel(Parcel dest , int flags){
 
             // ints to string
-            String durationString = Integer.toString(this.duration);
-            String IDString = Integer.toString(this.id);
-            String priorityString  = Integer.toString(this.priority);
-
-
-            dest.writeStringArray(new String[] {durationString,IDString,priorityString,this.title,this.notes});
+            dest.writeInt(this.duration);
+            dest.writeInt(this.id);
+            dest.writeInt(this.priority);
+            dest.writeStringArray(new String[] {this.title,this.notes});
         }
 
 
