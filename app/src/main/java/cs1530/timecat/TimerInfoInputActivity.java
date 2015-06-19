@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.NumberPicker;
 
 import cs1530.timecat.R;
@@ -13,10 +14,11 @@ public class TimerInfoInputActivity extends ActionBarActivity {
 
     private static final String timeValuesID = "profileBuilder";
 
+    // Global view variables
     NumberPicker numberPickers[];
-
-
-
+    EditText name;
+    EditText info;
+    ProcedureBuilder procedureBuilder;
 
 
 
@@ -27,11 +29,16 @@ public class TimerInfoInputActivity extends ActionBarActivity {
 
         Intent intent = getIntent();
 
-        
-
-        //initialise parameters
-
+        //initialise parameters and identify views
         setNumberPickerParameters();
+
+        name = (EditText)findViewById(R.id.nameEditText);
+        info = (EditText)findViewById(R.id.infoEditText);
+
+        procedureBuilder = new ProcedureBuilder();
+
+
+
 
 
 
@@ -62,15 +69,23 @@ public class TimerInfoInputActivity extends ActionBarActivity {
 
     private void saveValues(){
 
+
+
+
+        //TimeStepInfo timeStepInfo = new TimeStepInfo()
+
+
     }
 
 
     // initialize numberPickers and sets min max value parameters
     private void setNumberPickerParameters(){
 
-        numberPickers[0] = (NumberPicker) findViewById(R.id.hourPicker);
-        numberPickers[1] = (NumberPicker) findViewById(R.id.minutePicker);
-        numberPickers[2] = (NumberPicker) findViewById(R.id.secondPicker);
+        numberPickers = new NumberPicker[3];
+
+        numberPickers[0] = (NumberPicker)findViewById(R.id.hourPicker);
+        numberPickers[1] = (NumberPicker)findViewById(R.id.minutePicker);
+        numberPickers[2] = (NumberPicker)findViewById(R.id.secondPicker);
 
         // initialize with Application environment
 
@@ -85,10 +100,23 @@ public class TimerInfoInputActivity extends ActionBarActivity {
         }
     }
 
+
+
     // sets min and max values
     private void setMinMax(NumberPicker np, int min ,int max){
         np.setMinValue(min);
         np.setMaxValue(max);
+    }
+
+    // resets input views
+    private void resetAllInput(){
+
+        name.setText("");
+        info.setText("");
+
+        for (int i = 0 ; i < 3 ; i++){
+            numberPickers[i].setValue(0);
+        }
     }
 
 }

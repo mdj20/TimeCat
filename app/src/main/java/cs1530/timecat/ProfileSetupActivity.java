@@ -121,4 +121,18 @@ public class ProfileSetupActivity extends ActionBarActivity {
         return result;
     }
 
+
+
+
+
+    public void buildNewProcedure(){
+
+        ProcedureBuilder procedureBuilder = new ProcedureBuilder();
+
+        Intent procedureIntent = new Intent(this,TimerInfoInputActivity.class);
+
+
+
+
+    }
 }

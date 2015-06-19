@@ -13,24 +13,25 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/name"
+        android:id="@+id/nameEditText"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:hint="Enter name of step" />
+        android:hint="Enter name of step"
+        android:singleLine="true" />
 
     <NumberPicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/hourPicker"
-        android:layout_below="@+id/name"
+        android:layout_below="@+id/nameEditText"
         android:layout_alignParentStart="true" />
 
     <NumberPicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/minutePicker"
-        android:layout_below="@+id/name"
+        android:layout_below="@+id/nameEditText"
         android:layout_centerHorizontal="true" />
 
     <NumberPicker
@@ -46,10 +47,26 @@
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/infoEditText"
         android:layout_below="@+id/hourPicker"
         android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:hint="Enter Step Information (this is not pretty, I know)" />
+        android:hint="Enter Step Information (this is not pretty, I know)"
+        android:layout_above="@+id/buttonNext" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:id="@+id/buttonNext"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:id="@+id/buttonDone"
+        android:layout_alignBottom="@+id/buttonNext"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

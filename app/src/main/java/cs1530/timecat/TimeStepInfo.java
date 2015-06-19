@@ -14,7 +14,7 @@ public class TimeStepInfo implements Comparable<TimeStepInfo> {
 
 
         // dateTime object mayu be use in the future Maybe?
-        private long duration;
+        private int duration;
 
         // use once ID value (not implemented yet, but these should have a unique id number)
         private int id;
@@ -26,7 +26,7 @@ public class TimeStepInfo implements Comparable<TimeStepInfo> {
         private String notes;
 
 
-        TimeStepInfo(long d, int i, int p , String t, String n ){
+        TimeStepInfo(int d, int i, int p , String t, String n ){
 
             this.duration = d;
             this.id= i ;
@@ -37,7 +37,7 @@ public class TimeStepInfo implements Comparable<TimeStepInfo> {
         }
 
         // Overload
-        TimeStepInfo(long d, int i, int p){
+        TimeStepInfo(int d, int i, int p){
 
             this( d, i,  p,"", "");
 
@@ -65,11 +65,11 @@ public class TimeStepInfo implements Comparable<TimeStepInfo> {
 
 
 
-        public void setDuration( long d){
+        public void setDuration( int d){
             duration = d;
         }
 
-        public long getDuration(){
+        public int getDuration(){
             return duration;
         }
 
