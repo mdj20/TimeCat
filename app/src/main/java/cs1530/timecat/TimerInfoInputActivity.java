@@ -79,10 +79,16 @@ public class TimerInfoInputActivity extends ActionBarActivity {
     // called when user is finished adding steps
     public void saveAndFinish(View view)
     {
-        //saveAndNext(view);
+        // collect last values
+        saveAndNext(view);
 
-        Intent editIntent = new Intent(this,TimerDisplayActivity.class);
+        // set new intent
+        Intent timerDisplayIntent = new Intent(this,TimerDisplayActivity.class);
 
+        // put timer values objects into intent
+        timerDisplayIntent.putParcelableArrayListExtra(timeValuesID,procedureBuilder);
+
+        startActivity(timerDisplayIntent);
 
     }
 
@@ -90,6 +96,7 @@ public class TimerInfoInputActivity extends ActionBarActivity {
     // constructs TimeStepInfo from view values
     private TimeStepInfo valuesToObject(){
 
+        //get time values
         int hours   = numberPickers[0].getValue();
         int minutes = numberPickers[1].getValue();
         int seconds = numberPickers[2].getValue();
