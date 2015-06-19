@@ -14,7 +14,7 @@ import cs1530.timecat.R;
 public class TimerInfoInputActivity extends ActionBarActivity {
 
     // keys used for intent extra ID
-    private static final String timeValuesID = "profileBuilder";
+    private static final String timeValuesID = "procedureBuilder";
     private static final String numOfStepsKey = "numOfSteps";
 
     // Global view variables

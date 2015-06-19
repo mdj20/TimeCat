@@ -15,7 +15,7 @@ public class TimerDisplayActivity extends ActionBarActivity {
 
 
     // this string is required, used as the key identifier for the time values when passing to
-    private static final String timeValuesID = "timeValues";
+        private static final String timeValuesID = "procedureBuilder";
 
 
     // boiler plate code
@@ -28,8 +28,7 @@ public class TimerDisplayActivity extends ActionBarActivity {
         // new code below
         Intent intent = getIntent();
 
-
-
+        ArrayList<TimeStepInfo> timeStepInfos = intent.getParcelableArrayListExtra(timeValuesID);
     }
 
     //  Changes the text of tv to the value of i
