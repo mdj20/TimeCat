@@ -28,25 +28,6 @@ public class TimerDisplayActivity extends ActionBarActivity {
         // new code below
         Intent intent = getIntent();
 
-        // get AarrayList of Integers
-        ArrayList<Integer> timeValueArray = intent.getIntegerArrayListExtra(timeValuesID);
-
-        // create ArrayList for Views
-        ArrayList<TextView> timeOutViews = new ArrayList<TextView>();
-
-        // add views to ArrayList, views need to be cast as TextView
-        timeOutViews.add((TextView) findViewById(R.id.time_out0));
-        timeOutViews.add((TextView) findViewById(R.id.time_out1));
-        timeOutViews.add((TextView) findViewById(R.id.time_out2));
-        timeOutViews.add((TextView) findViewById(R.id.time_out3));
-        timeOutViews.add((TextView) findViewById(R.id.time_out4));
-
-
-        // method call for text update
-        for(int i = 0 ; i < 5 ; i++){
-            updateTime(timeOutViews.get(i),timeValueArray.get(i));
-        }
-
 
 
     }

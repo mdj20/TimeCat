@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 
@@ -12,14 +13,16 @@ import cs1530.timecat.R;
 
 public class TimerInfoInputActivity extends ActionBarActivity {
 
+    // keys used for intent extra ID
     private static final String timeValuesID = "profileBuilder";
+    private static final String numOfStepsKey = "numOfSteps";
 
     // Global view variables
     NumberPicker numberPickers[];
     EditText name;
     EditText info;
     ProcedureBuilder procedureBuilder;
-
+    int numOfSteps;
 
 
     @Override
@@ -27,7 +30,8 @@ public class TimerInfoInputActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer_info_input);
 
-        Intent intent = getIntent();
+        Intent launchIntent = getIntent();
+        numOfSteps = launchIntent.getIntExtra(numOfStepsKey,0);
 
         //initialise parameters and identify views
         setNumberPickerParameters();
@@ -64,7 +68,7 @@ public class TimerInfoInputActivity extends ActionBarActivity {
 
 
     // called when user wants to add another step.
-    private void saveAndNext(){
+    public void saveAndNext(View view){
 
         TimeStepInfo tsi = valuesToObject();
         procedureBuilder.add(tsi);
@@ -73,10 +77,11 @@ public class TimerInfoInputActivity extends ActionBarActivity {
 
 
     // called when user is finished adding steps
-    private void saveAndFinish()
+    public void saveAndFinish(View view)
     {
+        //saveAndNext(view);
 
-
+        Intent editIntent = new Intent(this,TimerDisplayActivity.class);
 
 
     }
@@ -89,7 +94,7 @@ public class TimerInfoInputActivity extends ActionBarActivity {
         int minutes = numberPickers[1].getValue();
         int seconds = numberPickers[2].getValue();
 
-        //converts values to
+        //converts values to seconds
         int durationInSeconds = ((hours*60)+minutes)*60+seconds;
 
         TimeStepInfo timeStepInfo = new TimeStepInfo(durationInSeconds,procedureBuilder.size(),procedureBuilder.size(),name.getText().toString(),info.getText().toString());

@@ -15,6 +15,7 @@ public class ProfileSetupActivity extends ActionBarActivity {
 
 
     private static final String timeValuesID = "timeValues";
+    private static final String numOfStepsKey = "numOfSteps";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,16 +123,13 @@ public class ProfileSetupActivity extends ActionBarActivity {
     }
 
 
-
-
-
-    public void buildNewProcedure(){
-
-        ProcedureBuilder procedureBuilder = new ProcedureBuilder();
+    public void buildNewProcedure(View view){
 
         Intent procedureIntent = new Intent(this,TimerInfoInputActivity.class);
 
+        procedureIntent.putExtra(numOfStepsKey,0);
 
+        startActivity(procedureIntent);
 
 
     }
