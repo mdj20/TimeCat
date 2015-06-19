@@ -63,6 +63,7 @@ public class TimerInfoInputActivity extends ActionBarActivity {
     }
 
 
+    // called when user wants to add another step.
     private void saveAndNext(){
 
         TimeStepInfo tsi = valuesToObject();
@@ -70,8 +71,13 @@ public class TimerInfoInputActivity extends ActionBarActivity {
         resetAllInput();
     }
 
+
+    // called when user is finished adding steps
     private void saveAndFinish()
     {
+
+
+
 
     }
 

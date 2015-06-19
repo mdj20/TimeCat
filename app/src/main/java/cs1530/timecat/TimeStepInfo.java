@@ -29,6 +29,7 @@ public class TimeStepInfo implements Comparable<TimeStepInfo> , Parcelable {
         private String notes;
 
 
+        // explicit constructor
         TimeStepInfo(int d, int i, int p , String t, String n ){
 
             this.duration = d;
@@ -39,14 +40,22 @@ public class TimeStepInfo implements Comparable<TimeStepInfo> , Parcelable {
 
         }
 
-        // Overload
+        // Overloaded constructor
         TimeStepInfo(int d, int i, int p){
 
             this( d, i,  p,"", "");
 
         }
 
+        // constructor via parcel
+        private TimeStepInfo(Parcel in){
 
+            this.duration = in.readInt();
+            this.id = in.readInt();
+            this.priority = in.readInt();
+            this.title = in.readString();
+            this.notes = in.readString();
+        }
  
 
 
@@ -90,7 +99,7 @@ public class TimeStepInfo implements Comparable<TimeStepInfo> , Parcelable {
         // Comparable req (must add code for edge cases and null object value)
         public int compareTo( TimeStepInfo in ){
 
-            return this.priority - in.priority;
+            return this.priority - in.getPriority();
 
 
         }
@@ -107,12 +116,30 @@ public class TimeStepInfo implements Comparable<TimeStepInfo> , Parcelable {
         @Override
         public void writeToParcel(Parcel dest , int flags){
 
-            // ints to string
+            // write data to parcel
             dest.writeInt(this.duration);
             dest.writeInt(this.id);
             dest.writeInt(this.priority);
-            dest.writeStringArray(new String[] {this.title,this.notes});
+            dest.writeString(this.title);
+            dest.writeString(this.notes);
+
         }
+
+        public static final Parcelable.Creator<TimeStepInfo> CREATOR = new Parcelable.Creator<TimeStepInfo>() {
+
+
+            @Override
+            public  TimeStepInfo createFromParcel(Parcel source){
+                return new TimeStepInfo(source);
+            }
+
+            @Override
+            public TimeStepInfo[] newArray(int size){
+                return new TimeStepInfo[size];
+            }
+
+        };
+
 
 
 }

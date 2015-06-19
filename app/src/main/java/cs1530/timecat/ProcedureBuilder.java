@@ -11,6 +11,9 @@ import java.util.ArrayList;
  *  organizing the time steps
  *
  *  also it may, provide utilities for saving info sqlite etc.
+ *
+ *   right now it's just an arraylist
+ *
  */
 public class ProcedureBuilder extends ArrayList<TimeStepInfo> {
 
