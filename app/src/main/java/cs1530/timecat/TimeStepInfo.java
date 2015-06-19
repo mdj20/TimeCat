@@ -1,5 +1,8 @@
 package cs1530.timecat;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  *  Created by matthew on 6/17/15.
  *
@@ -9,7 +12,7 @@ package cs1530.timecat;
  *
  *
  */
-public class TimeStepInfo implements Comparable<TimeStepInfo> {
+public class TimeStepInfo implements Comparable<TimeStepInfo> , Parcelable {
 
 
 
@@ -40,6 +43,11 @@ public class TimeStepInfo implements Comparable<TimeStepInfo> {
         TimeStepInfo(int d, int i, int p){
 
             this( d, i,  p,"", "");
+
+        }
+
+
+        TimeStepInfo(Parcel in ){
 
         }
 
@@ -89,6 +97,26 @@ public class TimeStepInfo implements Comparable<TimeStepInfo> {
 
         }
 
+
+
+        // code below is required for parcelable
+
+        @Override
+        public int describeContents(){
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest , int flags){
+
+            // ints to string
+            String durationString = Integer.toString(this.duration);
+            String IDString = Integer.toString(this.id);
+            String priorityString  = Integer.toString(this.priority);
+
+
+            dest.writeStringArray(new String[] {durationString,IDString,priorityString,this.title,this.notes});
+        }
 
 
 }

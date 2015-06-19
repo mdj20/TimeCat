@@ -64,7 +64,7 @@ public class TimerInfoInputActivity extends ActionBarActivity {
 
 
     private void saveAndNext(){
-        
+
         TimeStepInfo tsi = valuesToObject();
         procedureBuilder.add(tsi);
         resetAllInput();
