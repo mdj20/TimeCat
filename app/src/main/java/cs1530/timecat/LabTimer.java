@@ -11,7 +11,9 @@ public class LabTimer
 {
 
     private CountDownTimer countdowntimer;
-    private Integer startTime;
+    private int initialTime;
+    private int remainingTime;
+    private int elapsedTime;
     private EditText hourEditText;
     private EditText minuteEditText;
     private EditText secondEditText;
@@ -26,24 +28,49 @@ public class LabTimer
 
 
     // start time currently in seconds
-    LabTimer(Integer time, EditText h, EditText m , EditText s){
+    LabTimer(Integer inTime, EditText h, EditText m , EditText s){
 
+        initialTime = inTime;
+
+        //output fields
         hourEditText = h;
         minuteEditText = m;
         secondEditText =s ;
 
-        //change seconds to miliseconds
-        long  miliTime = 1000*time;
+
+        remainingTime = initialTime;
+
+        elapsedTime=0;
 
 
 
+    }
 
+    public void start(){
+
+        //set hours
+        hour = remainingTime/3600;
+
+        //set minutes
+        int tempTime = remainingTime%3600;
+        minute = tempTime/60;
+
+        // set seconds
+        second = tempTime%60;
+
+        updateOutputs();
+
+        // set countdown timer. must be recreated every start
+        long  miliTime = 1000*remainingTime;
         countdowntimer = new CountDownTimer(miliTime,1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
 
-              subtractSecond();
+
+                elapsedTime++;
+                subtractSecond();
+                updateOutputs();
 
 
             }
@@ -54,33 +81,15 @@ public class LabTimer
             }
         };
 
-        //set hours
-        hour = time/3600;
-
-        //set minutes
-        time = time%3600;
-        minute = time/60;
-
-        // set seconds
-        second = time%60;
-
-
-        //update editTexts;
-        updateOutputs();
-
-
-
-
-
-    }
-
-    public void start(){
-
         countdowntimer.start();
+
     }
 
     public void stop(){
         countdowntimer.cancel();
+
+        // update remainingTime
+        remainingTime -= elapsedTime;
     }
 
     public void subtractSecond(){
@@ -92,6 +101,7 @@ public class LabTimer
         else if (subtractMinute()){
             second = 59;
         }
+
     }
 
     private boolean subtractHour(){
@@ -110,7 +120,7 @@ public class LabTimer
             minute = 59;
             return true;
         }
-            return false;
+        return false;
 
 
 

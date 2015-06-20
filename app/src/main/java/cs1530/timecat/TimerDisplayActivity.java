@@ -14,9 +14,10 @@ import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.EventListener;
 
 
-public class TimerDisplayActivity extends ActionBarActivity {
+public class TimerDisplayActivity extends ActionBarActivity implements EventListener {
 
 
     // this string is required, used as the key identifier for the time values when passing to
@@ -30,6 +31,7 @@ public class TimerDisplayActivity extends ActionBarActivity {
     EditText secondMain;
     TimeStepInfo  currentTask;
     TimeStepInfo nextTask;
+
 
 
 
@@ -51,7 +53,7 @@ public class TimerDisplayActivity extends ActionBarActivity {
         isRunning = false;
 
         currentTaskNameOutput = (EditText)findViewById(R.id.currentTaskNameOutput);
-        currentTaskNameOutput.setText("Number of entries: "+timeStepInfos.size());
+        currentTaskNameOutput.setText("CurrentTas "+timeStepInfos.size());
 
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
