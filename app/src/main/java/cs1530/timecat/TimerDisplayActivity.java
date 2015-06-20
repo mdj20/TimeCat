@@ -6,8 +6,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextClock;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 
@@ -16,6 +21,12 @@ public class TimerDisplayActivity extends ActionBarActivity {
 
     // this string is required, used as the key identifier for the time values when passing to
         private static final String timeValuesID = "procedureBuilder";
+
+    ArrayList<TimeStepInfo> timeStepInfos;
+    boolean isRunning;
+    EditText currentTaskNameOutput;
+    TextClock mainClock;
+
 
 
     // boiler plate code
@@ -28,7 +39,20 @@ public class TimerDisplayActivity extends ActionBarActivity {
         // new code below
         Intent intent = getIntent();
 
-        ArrayList<TimeStepInfo> timeStepInfos = intent.getParcelableArrayListExtra(timeValuesID);
+        timeStepInfos = intent.getParcelableArrayListExtra(timeValuesID);
+
+        isRunning = false;
+
+        currentTaskNameOutput = (EditText)findViewById(R.id.currentTaskNameOutput);
+        currentTaskNameOutput.setText("Number of entries: "+timeStepInfos.size());
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
+
+        //mainClock = (TextClock)findViewById(R.id.mainClock);
+        //mainClock.setFormat24Hour("HH:MM:SS");
+        //mainClock.
+
+
     }
 
     //  Changes the text of tv to the value of i
