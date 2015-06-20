@@ -69,5 +69,6 @@
         android:text="Done"
         android:id="@+id/buttonDone"
         android:layout_alignBottom="@+id/buttonNext"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:onClick="saveAndFinish" />
 </RelativeLayout>
