@@ -26,11 +26,18 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
     ArrayList<TimeStepInfo> timeStepInfos;
     boolean isRunning;
     EditText currentTaskNameOutput;
-    EditText hourMain;
-    EditText minuteMain;
-    EditText secondMain;
+    EditText mainHour;
+    EditText mainMinute;
+    EditText mainSecond;
+
+    int indexOfCurrentTask;
+    int indexOfLastTask;
+
     TimeStepInfo  currentTask;
     TimeStepInfo nextTask;
+
+    LabTimer labTimer;
+
 
 
 
@@ -49,14 +56,30 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         // get arrayList of
         timeStepInfos = intent.getParcelableArrayListExtra(timeValuesID);
 
+        indexOfCurrentTask =0;
+        indexOfLastTask = timeStepInfos.size()-1;
+
         //begin in stop state;
         isRunning = false;
 
+        // get output views
         currentTaskNameOutput = (EditText)findViewById(R.id.currentTaskNameOutput);
-        currentTaskNameOutput.setText("CurrentTas "+timeStepInfos.size());
+        mainHour = (EditText)findViewById(R.id.mainHour);
+        mainMinute = (EditText)findViewById(R.id.mainMinute);
+        mainSecond = (EditText)findViewById(R.id.mainSecond);
+
+        currentTask = timeStepInfos.get(indexOfCurrentTask);
+        //nextTask = timeStepInfos.get(indexOfCurrentTask+1);
+
+        currentTaskNameOutput.setText("CurrentTask "+ currentTask.getTitle());
+
+       // mainHour.setText(String.valueOf(currentTask.getDuration()));
+        //mainMinute.setText(String.valueOf(currentTask.getDuration()));
+        //mainSecond.setText(String.valueOf(currentTask.getDuration()));
+        //initializze labTimer
+        labTimer = new LabTimer(currentTask.getDuration(),mainHour,mainMinute,mainSecond);
 
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
 
 
 
@@ -111,5 +134,9 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
     public boolean startStop(View view){
         isRunning = (isRunning)?stopMain():startMain();
         return isRunning;
+    }
+
+    public void alarmEvent(){
+
     }
 }

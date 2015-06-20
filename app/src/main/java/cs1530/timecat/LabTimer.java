@@ -42,6 +42,7 @@ public class LabTimer
 
         elapsedTime=0;
 
+        updateOutputs();
 
 
     }
@@ -49,14 +50,7 @@ public class LabTimer
     public void start(){
 
         //set hours
-        hour = remainingTime/3600;
 
-        //set minutes
-        int tempTime = remainingTime%3600;
-        minute = tempTime/60;
-
-        // set seconds
-        second = tempTime%60;
 
         updateOutputs();
 
@@ -69,7 +63,7 @@ public class LabTimer
 
 
                 elapsedTime++;
-                subtractSecond();
+                remainingTime--;
                 updateOutputs();
 
 
@@ -77,7 +71,7 @@ public class LabTimer
 
             @Override
             public void onFinish() {
-
+                // gotta figure this out
             }
         };
 
@@ -92,6 +86,8 @@ public class LabTimer
         remainingTime -= elapsedTime;
     }
 
+
+    /*
     public void subtractSecond(){
 
         if (second > 0){
@@ -126,10 +122,21 @@ public class LabTimer
 
     }
 
+    */
+
     public void updateOutputs(){
-        hourEditText.setText(hour);
-        minuteEditText.setText(minute);
-        secondEditText.setText(second);
+        hour = remainingTime/3600;
+
+        //set minutes
+        int tempTime = remainingTime%3600;
+        minute = tempTime/60;
+
+        // set seconds
+        second = tempTime%60;
+
+        hourEditText.setText(String.valueOf(hour));
+        minuteEditText.setText(String.valueOf(minute));
+        secondEditText.setText(String.valueOf(second));
     }
 
 
