@@ -6,6 +6,10 @@ import android.widget.EditText;
 
 /**
  * Created by matthew on 6/3/15.
+ *
+ *      This class will do the actual count down. It must be created with the Views in the constructor.
+ *
+ *
  */
 public class LabTimer
 {
@@ -49,7 +53,7 @@ public class LabTimer
 
     public void start(){
 
-        //set hours
+
 
 
         updateOutputs();
@@ -87,7 +91,7 @@ public class LabTimer
     }
 
 
-    /*
+    /*  This may not be the right way to do it.
     public void subtractSecond(){
 
         if (second > 0){

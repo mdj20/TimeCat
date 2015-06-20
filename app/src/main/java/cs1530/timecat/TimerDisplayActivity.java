@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextClock;
 import android.widget.TextView;
@@ -22,9 +23,11 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
     // this string is required, used as the key identifier for the time values when passing to
         private static final String timeValuesID = "procedureBuilder";
+        private static final String startString = "Start Timer";
+        private static final String stopString = "Stop Timer";
 
     ArrayList<TimeStepInfo> timeStepInfos;
-    boolean isRunning;
+    boolean isRunningMain;
     EditText currentTaskNameOutput;
     EditText mainHour;
     EditText mainMinute;
@@ -36,7 +39,7 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
     TimeStepInfo  currentTask;
     TimeStepInfo nextTask;
 
-    LabTimer labTimer;
+    LabTimer labTimerMain;
 
 
 
@@ -60,7 +63,7 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         indexOfLastTask = timeStepInfos.size()-1;
 
         //begin in stop state;
-        isRunning = false;
+        isRunningMain = false;
 
         // get output views
         currentTaskNameOutput = (EditText)findViewById(R.id.currentTaskNameOutput);
@@ -73,11 +76,9 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
         currentTaskNameOutput.setText("CurrentTask "+ currentTask.getTitle());
 
-       // mainHour.setText(String.valueOf(currentTask.getDuration()));
-        //mainMinute.setText(String.valueOf(currentTask.getDuration()));
-        //mainSecond.setText(String.valueOf(currentTask.getDuration()));
+
         //initializze labTimer
-        labTimer = new LabTimer(currentTask.getDuration(),mainHour,mainMinute,mainSecond);
+        labTimerMain = new LabTimer(currentTask.getDuration(),mainHour,mainMinute,mainSecond);
 
 
 
@@ -116,27 +117,43 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
     }
 
     //strats main counter
-    public boolean startMain(){
+    public boolean startMain(LabTimer inLabTimer){
 
+        inLabTimer.start();
         // this method will start the countdown
         return true;
     }
 
     //stops main counter
-    public boolean stopMain(){
+    public boolean stopMain(LabTimer inLabTimer){
 
         // this method will start the countdown
+        inLabTimer.stop();
         return false;
     }
 
 
     // toggle start stop return isRunning value
     public boolean startStop(View view){
-        isRunning = (isRunning)?stopMain():startMain();
-        return isRunning;
+
+        Button b = (Button)view;
+
+        // toggle start and stop
+        isRunningMain = (isRunningMain)?stopMain(labTimerMain):startMain(labTimerMain);
+
+        if(isRunningMain){
+            b.setText(stopString);
+        }
+        else{
+            b.setText(startString);
+        }
+
+        return isRunningMain;
     }
 
     public void alarmEvent(){
+
+        //alarm event and switch
 
     }
 }
