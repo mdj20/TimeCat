@@ -25,7 +25,12 @@ public class TimerDisplayActivity extends ActionBarActivity {
     ArrayList<TimeStepInfo> timeStepInfos;
     boolean isRunning;
     EditText currentTaskNameOutput;
-    TextClock mainClock;
+    EditText hourMain;
+    EditText minuteMain;
+    EditText secondMain;
+    TimeStepInfo  currentTask;
+    TimeStepInfo nextTask;
+
 
 
 
@@ -34,23 +39,23 @@ public class TimerDisplayActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer_display);
-
-
         // new code below
+
+        // get intent from previous Activity
         Intent intent = getIntent();
 
+        // get arrayList of
         timeStepInfos = intent.getParcelableArrayListExtra(timeValuesID);
 
+        //begin in stop state;
         isRunning = false;
 
         currentTaskNameOutput = (EditText)findViewById(R.id.currentTaskNameOutput);
         currentTaskNameOutput.setText("Number of entries: "+timeStepInfos.size());
 
+
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
 
-        //mainClock = (TextClock)findViewById(R.id.mainClock);
-        //mainClock.setFormat24Hour("HH:MM:SS");
-        //mainClock.
 
 
     }
@@ -83,5 +88,26 @@ public class TimerDisplayActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //strats main counter
+    public boolean startMain(){
+
+        // this method will start the countdown
+        return true;
+    }
+
+    //stops main counter
+    public boolean stopMain(){
+
+        // this method will start the countdown
+        return false;
+    }
+
+
+    // toggle start stop return isRunning value
+    public boolean startStop(View view){
+        isRunning = (isRunning)?stopMain():startMain();
+        return isRunning;
     }
 }
