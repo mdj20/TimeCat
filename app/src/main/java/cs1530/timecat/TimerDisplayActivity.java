@@ -45,7 +45,7 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
     LabTimer labTimerMain;
 
-
+    Button startStop;
 
 
 
@@ -74,6 +74,7 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         mainHour = (EditText)findViewById(R.id.mainHour);
         mainMinute = (EditText)findViewById(R.id.mainMinute);
         mainSecond = (EditText)findViewById(R.id.mainSecond);
+        startStop = (Button)findViewById(R.id.startStopButton);
 
         currentTask = timeStepInfos.get(indexOfCurrentTask);
         // nextTask = timeStepInfos.get(indexOfCurrentTask+1);
@@ -140,11 +141,12 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
     // toggle start stop return isRunning value
     public boolean startStop(View view){
 
-        Button b = (Button)view;
+        //Button b = (Button)view;
 
         // toggle start and stop
-        isRunningMain = (isRunningMain)? startTimer(labTimerMain) : stopTimer(labTimerMain);
+        isRunningMain = (isRunningMain)? stopTimer(labTimerMain) : startTimer(labTimerMain);
 
+        /*
         if(isRunningMain){
             b.setText(stopString);
         }
@@ -152,6 +154,8 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
             b.setText(startString);
         }
 
+
+        */
         return isRunningMain;
     }
 
