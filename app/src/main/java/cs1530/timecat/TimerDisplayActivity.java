@@ -27,16 +27,20 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         private static final String stopString = "Stop Timer";
 
     ArrayList<TimeStepInfo> timeStepInfos;
+
+
+    int indexOfCurrentTask;
+    int indexOfLastTask;
+
+    // main timer
     boolean isRunningMain;
     EditText currentTaskNameOutput;
     EditText mainHour;
     EditText mainMinute;
     EditText mainSecond;
 
-    int indexOfCurrentTask;
-    int indexOfLastTask;
 
-    TimeStepInfo  currentTask;
+    TimeStepInfo currentTask;
     TimeStepInfo nextTask;
 
     LabTimer labTimerMain;
@@ -59,10 +63,10 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         // get arrayList of
         timeStepInfos = intent.getParcelableArrayListExtra(timeValuesID);
 
-        indexOfCurrentTask =0;
+        indexOfCurrentTask = 0;
         indexOfLastTask = timeStepInfos.size()-1;
 
-        //begin in stop state;
+        // begin in stop state
         isRunningMain = false;
 
         // get output views
@@ -72,13 +76,13 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         mainSecond = (EditText)findViewById(R.id.mainSecond);
 
         currentTask = timeStepInfos.get(indexOfCurrentTask);
-        //nextTask = timeStepInfos.get(indexOfCurrentTask+1);
+        // nextTask = timeStepInfos.get(indexOfCurrentTask+1);
 
-        currentTaskNameOutput.setText("CurrentTask "+ currentTask.getTitle());
+        currentTaskNameOutput.setText(currentTask.getTitle());
 
 
-        //initializze labTimer
-        labTimerMain = new LabTimer(currentTask.getDuration(),mainHour,mainMinute,mainSecond);
+        // initialize labTimer
+        labTimerMain = startNewTimers(currentTask,mainHour,mainMinute,mainSecond);
 
 
 
@@ -117,7 +121,7 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
     }
 
     //strats main counter
-    public boolean startMain(LabTimer inLabTimer){
+    public boolean startTimer(LabTimer inLabTimer){
 
         inLabTimer.start();
         // this method will start the countdown
@@ -125,7 +129,7 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
     }
 
     //stops main counter
-    public boolean stopMain(LabTimer inLabTimer){
+    public boolean stopTimer(LabTimer inLabTimer){
 
         // this method will start the countdown
         inLabTimer.stop();
@@ -139,7 +143,7 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         Button b = (Button)view;
 
         // toggle start and stop
-        isRunningMain = (isRunningMain)?stopMain(labTimerMain):startMain(labTimerMain);
+        isRunningMain = (isRunningMain)? startTimer(labTimerMain) : stopTimer(labTimerMain);
 
         if(isRunningMain){
             b.setText(stopString);
@@ -151,9 +155,59 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         return isRunningMain;
     }
 
+    public LabTimer startNewTimers(TimeStepInfo next, EditText h , EditText m , EditText s){
+
+        return new LabTimer(next.getDuration(),h,m,s);
+
+    }
+
+
+    // iterates through timers returns false if the last timer has compleated
+    public boolean iterateTimers(){
+
+        boolean result = false;
+
+        // If not the last step, push next to current
+        if( indexOfCurrentTask < indexOfLastTask ){
+
+            currentTask = nextTask;
+
+            result = true;
+            // update index
+            indexOfCurrentTask++;
+
+            // repeat for the next task
+            if ( (indexOfCurrentTask) < indexOfLastTask){
+
+                nextTask = timeStepInfos.get(indexOfCurrentTask+1);
+
+
+                // if there is no next set as null...
+            }else{
+
+                nextTask = null;
+            }
+
+
+
+        } else {
+
+            currentTask = null;
+            // set as null
+
+        }
+
+
+        return result;
+
+    }
+
     public void alarmEvent(){
 
         //alarm event and switch
+
+
+
 
     }
 }

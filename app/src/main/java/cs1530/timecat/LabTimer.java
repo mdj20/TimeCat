@@ -75,7 +75,7 @@ public class LabTimer
 
             @Override
             public void onFinish() {
-                // gotta figure this out
+
             }
         };
 
@@ -86,8 +86,6 @@ public class LabTimer
     public void stop(){
         countdowntimer.cancel();
 
-        // update remainingTime
-        remainingTime -= elapsedTime;
     }
 
 
@@ -128,6 +126,8 @@ public class LabTimer
 
     */
 
+
+    // takes remaining time this may
     public void updateOutputs(){
         hour = remainingTime/3600;
 
