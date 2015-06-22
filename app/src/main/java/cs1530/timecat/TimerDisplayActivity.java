@@ -259,8 +259,16 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
     }
 
-    public void alarmEvent(){
+    public void alarmEvent(int timeRemaining){
 
+        // if there is more than 5 seconds left then its just a txt notification
+        if (timeRemaining > 5){
+
+        }
+        else{
+            //audible alarm event
+
+        }
         //alarm event and switch
 
 

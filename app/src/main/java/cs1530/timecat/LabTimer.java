@@ -27,6 +27,13 @@ public class LabTimer
     private int second;
 
 
+    // this will be used for toggling the alarm events and setting the intervlas thagt they occure
+    // for now Sprint on (6/22) they are hard coded
+    private boolean textAlarmEnabled = true;
+    private int textAlarmThreshold = 60  ;
+
+    private boolean audioAlarmEnabled = true;
+
 
 
 
@@ -44,7 +51,7 @@ public class LabTimer
 
         remainingTime = initialTime;
 
-        elapsedTime=0;
+        elapsedTime = 0;
 
         updateOutputs();
 
@@ -70,6 +77,9 @@ public class LabTimer
                 remainingTime--;
                 updateOutputs();
 
+                if (remainingTime == textAlarmThreshold){
+
+                }
 
             }
 
@@ -117,6 +127,9 @@ public class LabTimer
 
     }
 
+    public void sendAlarmSuper(int timeToSend){
+        // call alarmEvent
+    }
 
 
 }
