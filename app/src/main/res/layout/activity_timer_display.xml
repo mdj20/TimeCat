@@ -40,7 +40,8 @@
         android:text="New Button"
         android:id="@+id/button4"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:onClick="skip" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -76,11 +77,68 @@
             android:layout_weight="1" />
     </LinearLayout>
 
-    <Chronometer
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignEnd="@+id/button4"
+        android:layout_toEndOf="@+id/startStopButton"
+        android:layout_above="@+id/button4"
+        android:id="@+id/linearLayout2"
+        android:layout_below="@+id/gridLayout">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/nextHour"
+            android:layout_gravity="bottom"
+            android:layout_weight="1" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned"
+            android:ems="10"
+            android:id="@+id/nextMinute"
+            android:layout_gravity="bottom"
+            android:layout_weight="1" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned"
+            android:ems="10"
+            android:id="@+id/nextSecond"
+            android:layout_gravity="bottom"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/chronometer"
-        android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/editText" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Next Task:"
+        android:id="@+id/nextTaskString"
+        android:layout_above="@+id/nextTaskNameOutput"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nextTaskNameOutput"
+        android:layout_above="@+id/startStopButton"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/linearLayout2" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/nextTaskString"
+        android:id="@+id/gridLayout"
+        android:layout_alignEnd="@+id/linearLayout"></GridLayout>
 
 </RelativeLayout>

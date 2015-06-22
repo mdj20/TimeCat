@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.EventListener;
@@ -39,11 +40,19 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
     EditText mainMinute;
     EditText mainSecond;
 
+    EditText nextTaskNameOutput;
+    EditText nextHour;
+    EditText nextMiniute;
+    EditText nextSecond;
+
+
 
     TimeStepInfo currentTask;
     TimeStepInfo nextTask;
 
     LabTimer labTimerMain;
+
+    LabTimer labTimerNext;
 
     Button startStop;
 
@@ -60,7 +69,7 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         // get intent from previous Activity
         Intent intent = getIntent();
 
-        // get arrayList of
+        // get arrayList of TimeStepInfos
         timeStepInfos = intent.getParcelableArrayListExtra(timeValuesID);
 
         indexOfCurrentTask = 0;
@@ -69,32 +78,32 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         // begin in stop state
         isRunningMain = false;
 
-        // get output views
+        // get output views Main
         currentTaskNameOutput = (EditText)findViewById(R.id.currentTaskNameOutput);
         mainHour = (EditText)findViewById(R.id.mainHour);
         mainMinute = (EditText)findViewById(R.id.mainMinute);
         mainSecond = (EditText)findViewById(R.id.mainSecond);
+
+        // get output views Next
+        nextTaskNameOutput = (EditText)findViewById(R.id.nextTaskNameOutput);
+        nextHour = (EditText)findViewById(R.id.nextHour);
+        nextMiniute = (EditText)findViewById(R.id.nextMinute);
+        nextSecond = (EditText)findViewById(R.id.nextSecond);
+
+
         startStop = (Button)findViewById(R.id.startStopButton);
 
-        currentTask = timeStepInfos.get(indexOfCurrentTask);
+        //currentTask = timeStepInfos.get(indexOfCurrentTask);
         // nextTask = timeStepInfos.get(indexOfCurrentTask+1);
 
-        currentTaskNameOutput.setText(currentTask.getTitle());
+        // initialize labTimer on main output
+        labTimerMain = initTimer(timeStepInfos.get(indexOfCurrentTask),mainHour,mainMinute,mainSecond,currentTaskNameOutput);
+
+        if ((indexOfCurrentTask+1) < timeStepInfos.size()){
+            labTimerNext = initTimer(timeStepInfos.get(indexOfCurrentTask+1),nextHour,nextMiniute,nextSecond,nextTaskNameOutput);
+        }
 
 
-        // initialize labTimer
-        labTimerMain = startNewTimers(currentTask,mainHour,mainMinute,mainSecond);
-
-
-
-
-
-    }
-
-    //  Changes the text of tv to the value of i
-    private void updateTime(TextView tv, Integer i){
-
-        tv.setText(i.toString());
 
     }
 
@@ -159,11 +168,17 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         return isRunningMain;
     }
 
-    public LabTimer startNewTimers(TimeStepInfo next, EditText h , EditText m , EditText s){
 
-        return new LabTimer(next.getDuration(),h,m,s);
+
+    public void skip(View view){
+
+        // must stop or it will keep running
+        labTimerMain.stop();
+
+        iterateTimers();
 
     }
+
 
 
     // iterates through timers returns false if the last timer has compleated
@@ -174,28 +189,35 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         // If not the last step, push next to current
         if( indexOfCurrentTask < indexOfLastTask ){
 
-            currentTask = nextTask;
+
+
+            nextToMain(timeStepInfos.get(indexOfCurrentTask+1),labTimerNext);
+
+
 
             result = true;
             // update index
-            indexOfCurrentTask++;
+
 
             // repeat for the next task
-            if ( (indexOfCurrentTask) < indexOfLastTask){
+            if ( (indexOfCurrentTask+1) < indexOfLastTask){
 
-                nextTask = timeStepInfos.get(indexOfCurrentTask+1);
+                nextTask = timeStepInfos.get(indexOfCurrentTask+2);
 
 
                 // if there is no next set as null...
             }else{
 
-                nextTask = null;
+                labTimerNext = initTimer(new TimeStepInfo(0,0,0,"NONE","Null Object"),nextHour,nextMiniute,nextSecond,nextTaskNameOutput);
             }
 
+            indexOfCurrentTask++;
 
 
         } else {
 
+
+            // end timer
             currentTask = null;
             // set as null
 
@@ -203,6 +225,37 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
 
         return result;
+
+    }
+
+
+
+    private LabTimer initTimer(TimeStepInfo tsi, EditText h, EditText m, EditText s, EditText name){
+
+        name.setText(tsi.getTitle());
+
+        return new LabTimer(tsi.getDuration(),h,m,s);
+
+
+    }
+
+
+    // sets next (Will use Null object for the empty case)
+    private void setNext(TimeStepInfo tsi){
+        labTimerNext = initTimer(tsi,nextHour,nextMiniute,nextSecond,nextTaskNameOutput);
+    }
+
+    // sets main
+    private void setMain(TimeStepInfo tsi){
+
+        labTimerMain = initTimer(tsi,mainHour,mainMinute,mainSecond,currentTaskNameOutput);
+    }
+
+    //slides nest to main
+    private void nextToMain(TimeStepInfo nextTsi,LabTimer next){
+        currentTaskNameOutput.setText(nextTsi.getTitle());
+        next.setOutputTargets(mainHour,mainMinute,mainSecond);
+        labTimerMain = labTimerNext;
 
     }
 

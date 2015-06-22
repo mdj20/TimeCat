@@ -89,46 +89,9 @@ public class LabTimer
     }
 
 
-    /*  This may not be the right way to do it.
-    public void subtractSecond(){
-
-        if (second > 0){
-            second -= 1;
-
-        }
-        else if (subtractMinute()){
-            second = 59;
-        }
-
-    }
-
-    private boolean subtractHour(){
-        if (hour > 0){
-            hour-=1;
-            return true;
-        } else {
-            return false;
-        }
-    }
-    private boolean subtractMinute(){
-        if (minute > 0){
-            minute-=1;
-            return true;
-        } else if (subtractHour()){
-            minute = 59;
-            return true;
-        }
-        return false;
-
-
-
-    }
-
-    */
-
 
     // takes remaining time this may
-    public void updateOutputs(){
+    private void updateOutputs(){
         hour = remainingTime/3600;
 
         //set minutes
@@ -141,6 +104,17 @@ public class LabTimer
         hourEditText.setText(String.valueOf(hour));
         minuteEditText.setText(String.valueOf(minute));
         secondEditText.setText(String.valueOf(second));
+    }
+
+    // sets new output EditTexts
+    public void setOutputTargets(EditText h, EditText m, EditText s){
+
+        this.hourEditText = h;
+        this.minuteEditText = m;
+        this.secondEditText = s;
+        updateOutputs();
+
+
     }
 
 
