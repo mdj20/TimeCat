@@ -14,6 +14,7 @@ import android.widget.EditText;
 public class LabTimer
 {
 
+    private TimerDisplayActivity timerDisplayActivity;
     private CountDownTimer countdowntimer;
     private int initialTime;
     private int remainingTime;
@@ -39,8 +40,9 @@ public class LabTimer
 
 
     // start time currently in seconds
-    LabTimer(Integer inTime, EditText h, EditText m , EditText s){
+    LabTimer(Integer inTime, EditText h, EditText m , EditText s, TimerDisplayActivity tda){
 
+        timerDisplayActivity = tda;
         initialTime = inTime;
 
         //output fields
@@ -128,7 +130,8 @@ public class LabTimer
     }
 
     public void sendAlarmSuper(int timeToSend){
-        // call alarmEvent
+
+        timerDisplayActivity.alarmEvent(timeToSend);
     }
 
 

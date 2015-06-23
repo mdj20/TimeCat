@@ -1,6 +1,7 @@
 package cs1530.timecat;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -28,10 +29,7 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         private static final String stopString = "Stop Timer";
 
     ArrayList<TimeStepInfo> timeStepInfos;
-
-
-    int indexOfCurrentTask;
-    int indexOfLastTask;
+    MediaPlayer mediaPlayer;
 
     // main timer
     boolean isRunningMain;
@@ -40,18 +38,18 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
     EditText mainMinute;
     EditText mainSecond;
 
-    EditText nextTaskNameOutput;
-    EditText nextHour;
-    EditText nextMiniute;
-    EditText nextSecond;
-
-
-
+    int indexOfCurrentTask;
     TimeStepInfo currentTask;
-    TimeStepInfo nextTask;
-
     LabTimer labTimerMain;
 
+    //secondary display/timer
+    EditText nextTaskNameOutput;
+    EditText nextHour;
+    EditText nextMinute;
+    EditText nextSecond;
+
+    TimeStepInfo nextTask;
+    int indexOfLastTask;
     LabTimer labTimerNext;
 
     Button startStop;
@@ -65,6 +63,8 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer_display);
         // new code below
+
+        mediaPlayer = MediaPlayer.create(getApplication(),R.raw.alarm);
 
         // get intent from previous Activity
         Intent intent = getIntent();
@@ -87,7 +87,7 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         // get output views Next
         nextTaskNameOutput = (EditText)findViewById(R.id.nextTaskNameOutput);
         nextHour = (EditText)findViewById(R.id.nextHour);
-        nextMiniute = (EditText)findViewById(R.id.nextMinute);
+        nextMinute = (EditText)findViewById(R.id.nextMinute);
         nextSecond = (EditText)findViewById(R.id.nextSecond);
 
 
@@ -100,7 +100,7 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         labTimerMain = initTimer(timeStepInfos.get(indexOfCurrentTask),mainHour,mainMinute,mainSecond,currentTaskNameOutput);
 
         if ((indexOfCurrentTask+1) < timeStepInfos.size()){
-            labTimerNext = initTimer(timeStepInfos.get(indexOfCurrentTask+1),nextHour,nextMiniute,nextSecond,nextTaskNameOutput);
+            labTimerNext = initTimer(timeStepInfos.get(indexOfCurrentTask+1),nextHour,nextMinute,nextSecond,nextTaskNameOutput);
         }
 
 
@@ -130,11 +130,11 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         return super.onOptionsItemSelected(item);
     }
 
-    //strats main counter
+    // this method will start the countdown
     public boolean startTimer(LabTimer inLabTimer){
 
         inLabTimer.start();
-        // this method will start the countdown
+
         return true;
     }
 
@@ -208,7 +208,7 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
                 // if there is no next set as null...
             }else{
 
-                labTimerNext = initTimer(new TimeStepInfo(0,0,0,"NONE","Null Object"),nextHour,nextMiniute,nextSecond,nextTaskNameOutput);
+                labTimerNext = initTimer(new TimeStepInfo(0,0,0,"NONE","Null Object"),nextHour,nextMinute,nextSecond,nextTaskNameOutput);
             }
 
             indexOfCurrentTask++;
@@ -234,7 +234,7 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
         name.setText(tsi.getTitle());
 
-        return new LabTimer(tsi.getDuration(),h,m,s);
+        return new LabTimer(tsi.getDuration(),h,m,s,this);
 
 
     }
@@ -242,7 +242,7 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
     // sets next (Will use Null object for the empty case)
     private void setNext(TimeStepInfo tsi){
-        labTimerNext = initTimer(tsi,nextHour,nextMiniute,nextSecond,nextTaskNameOutput);
+        labTimerNext = initTimer(tsi,nextHour,nextMinute,nextSecond,nextTaskNameOutput);
     }
 
     // sets main
@@ -262,16 +262,21 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
     public void alarmEvent(int timeRemaining){
 
         // if there is more than 5 seconds left then its just a txt notification
-        if (timeRemaining > 5){
+        if (timeRemaining > 5 ){
 
+            // text alarm (Do Nothing for now...)
         }
         else{
+
+            mediaPlayer.setLooping(false);
+            mediaPlayer.start();
+
+
+
             //audible alarm event
 
         }
         //alarm event and switch
-
-
 
 
     }
