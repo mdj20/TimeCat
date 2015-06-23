@@ -45,6 +45,8 @@ public class TimeStepInfoTest extends TestCase {
 
     public void testGetPriority() throws Exception {
 
+
+
         TimeStepInfo tsi = new TimeStepInfo(0,0,0,"None","none");
 
         for(int i = 0 ; i < 100 ; i++){
@@ -57,7 +59,14 @@ public class TimeStepInfoTest extends TestCase {
 
     public void testCompareTo() throws Exception {
 
+            TimeStepInfo low = new TimeStepInfo(0,0,0,"null","null");
+            TimeStepInfo high = new TimeStepInfo(0,0,0,"null","null");
 
+        for (int i = 1 ; i < 1024 ; i++){
+
+            assertTrue(low.compareTo(high) < 0);
+
+        }
 
 
     }

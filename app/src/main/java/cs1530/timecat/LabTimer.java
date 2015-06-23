@@ -79,7 +79,11 @@ public class LabTimer
                 remainingTime--;
                 updateOutputs();
 
+
+
                 if (remainingTime == textAlarmThreshold){
+
+                    sendAlarm(remainingTime);
 
                 }
 
