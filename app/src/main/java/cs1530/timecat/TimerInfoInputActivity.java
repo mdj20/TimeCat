@@ -79,6 +79,8 @@ public class TimerInfoInputActivity extends ActionBarActivity {
     // called when user is finished adding steps
     public void saveAndFinish(View view)
     {
+
+
         // collect last values
         saveAndNext(view);
 
@@ -89,6 +91,9 @@ public class TimerInfoInputActivity extends ActionBarActivity {
         timerDisplayIntent.putParcelableArrayListExtra(timeValuesID,procedureBuilder);
 
         startActivity(timerDisplayIntent);
+
+
+
 
     }
 

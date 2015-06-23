@@ -60,7 +60,7 @@ public class LabTimer
 
     }
 
-    public void start(){
+    public CountDownTimer start(){
 
 
 
@@ -96,6 +96,8 @@ public class LabTimer
         };
 
         countdowntimer.start();
+
+        return countdowntimer;
 
     }
 
