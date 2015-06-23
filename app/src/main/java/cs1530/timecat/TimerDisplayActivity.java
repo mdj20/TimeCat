@@ -30,6 +30,7 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
     ArrayList<TimeStepInfo> timeStepInfos;
     MediaPlayer mediaPlayer;
+    TextView textAlarmEditText;
 
     // main timer
     boolean isRunningMain;
@@ -71,6 +72,9 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
         // get arrayList of TimeStepInfos
         timeStepInfos = intent.getParcelableArrayListExtra(timeValuesID);
+        textAlarmEditText = (TextView) findViewById(R.id.textAlarmEditText);
+
+        textAlarmEditText.setText("");
 
         indexOfCurrentTask = 0;
         indexOfLastTask = timeStepInfos.size()-1;
@@ -89,6 +93,8 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         nextHour = (EditText)findViewById(R.id.nextHour);
         nextMinute = (EditText)findViewById(R.id.nextMinute);
         nextSecond = (EditText)findViewById(R.id.nextSecond);
+
+
 
 
         startStop = (Button)findViewById(R.id.startStopButton);
@@ -264,6 +270,10 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         // if there is more than 5 seconds left then its just a txt notification
         if (timeRemaining > 5 ){
 
+
+            showMessage(new String("Step  is almost finished!!!"), textAlarmEditText);
+
+
             // text alarm (Do Nothing for now...)
         }
         else{
@@ -275,6 +285,8 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
             iterateTimers();
 
 
+            showMessage("", textAlarmEditText);
+
             //audible alarm event
  
         }
@@ -282,4 +294,12 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
 
     }
+
+
+    private void showMessage(String message, TextView target){
+
+            target.setText(message);
+
+    }
+
 }
