@@ -274,7 +274,7 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
 
             //audible alarm event
-
+ 
         }
         //alarm event and switch
 
