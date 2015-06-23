@@ -158,8 +158,19 @@ public class TimeStepInfoTest extends TestCase {
 
     public void testCompareTo() throws Exception {
 
+        TimeStepInfo tsiLow = new TimeStepInfo(0,0,0,"null","null");
+        TimeStepInfo tsiHigh = new TimeStepInfo(0,0,1,"null","null");
 
 
+        for (int i = 1 ; i <= 1024 ; i++){
+            tsiHigh.setPriority(i);
+            assertTrue((tsiLow.compareTo(tsiHigh))  < 0);
+        }
+
+        for (int i = 1024  ; i > 0 ; i--){
+            tsiHigh.setPriority(i);
+            assertTrue(tsiHigh.compareTo(tsiLow)  > 0);
+        }
 
     }
 
