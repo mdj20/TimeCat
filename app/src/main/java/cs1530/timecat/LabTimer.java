@@ -87,7 +87,7 @@ public class LabTimer
 
             @Override
             public void onFinish() {
-
+                    sendAlarm(0);
             }
         };
 
@@ -129,7 +129,7 @@ public class LabTimer
 
     }
 
-    public void sendAlarmSuper(int timeToSend){
+    public void sendAlarm(int timeToSend){
 
         timerDisplayActivity.alarmEvent(timeToSend);
     }

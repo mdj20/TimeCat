@@ -271,6 +271,8 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
             mediaPlayer.setLooping(false);
             mediaPlayer.start();
 
+            isRunningMain = false;
+            iterateTimers();
 
 
             //audible alarm event
