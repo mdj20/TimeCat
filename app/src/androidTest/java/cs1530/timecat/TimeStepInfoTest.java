@@ -6,7 +6,7 @@ import junit.framework.TestCase;
  * Created by matthew on 6/23/15.
  */
 public class TimeStepInfoTest extends TestCase {
-
+  
     
 
     public void testSetNotes() throws Exception {
