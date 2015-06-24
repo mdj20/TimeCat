@@ -7,6 +7,8 @@ import junit.framework.TestCase;
  */
 public class TimeStepInfoTest extends TestCase {
 
+    
+
     public void testSetNotes() throws Exception {
 
         StringBuilder testString = new StringBuilder("ABC Test Title");
