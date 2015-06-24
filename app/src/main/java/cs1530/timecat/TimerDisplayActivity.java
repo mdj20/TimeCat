@@ -28,6 +28,8 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         private static final String startString = "Start Timer";
         private static final String stopString = "Stop Timer";
 
+
+
     ArrayList<TimeStepInfo> timeStepInfos;
     MediaPlayer mediaPlayer;
     TextView textAlarmEditText;
@@ -288,7 +290,7 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
             showMessage("", textAlarmEditText);
 
             //audible alarm event
- 
+
         }
         //alarm event and switch
 
