@@ -6,28 +6,131 @@ import junit.framework.TestCase;
  * Created by matthew on 6/23/15.
  */
 public class TimeStepInfoTest extends TestCase {
+  
+    
 
     public void testSetNotes() throws Exception {
+
+        StringBuilder testString = new StringBuilder("ABC Test Title");
+
+        TimeStepInfo tsi = new TimeStepInfo(0,0,0,testString.toString(),"NONE");
+
+        for (int i = 0 ; i < 100 ; i++){
+
+            testString.delete(0,testString.length());
+
+            testString.append(i);
+
+            tsi.setTitle(testString.toString());
+
+            assertTrue(testString.toString().equals(tsi.getTitle()));
+
+        }
+
+
 
     }
 
     public void testGetNotes() throws Exception {
 
+        StringBuilder testString = new StringBuilder("ABC Test Title");
+
+        TimeStepInfo tsi = new TimeStepInfo(0,0,0,testString.toString(),"NONE");
+
+        for (int i = 0 ; i < 100 ; i++){
+
+            testString.delete(0,testString.length());
+
+            testString.append(i);
+
+            tsi.setTitle(testString.toString());
+
+            assertTrue(testString.toString().equals(tsi.getTitle()));
+
+        }
+
+
+
+
+
     }
 
     public void testSetTitle() throws Exception {
+
+
+
+
+        StringBuilder testString = new StringBuilder("ABC Test Title");
+
+        TimeStepInfo tsi = new TimeStepInfo(0,0,0,testString.toString(),"NONE");
+
+        for (int i = 0 ; i < 100 ; i++){
+
+            testString.delete(0,testString.length());
+
+            testString.append(i);
+
+            tsi.setTitle(testString.toString());
+
+            assertTrue(testString.toString().equals(tsi.getTitle()));
+
+        }
+
+
+
+
+
 
     }
 
     public void testGetTitle() throws Exception {
 
+        StringBuilder testString = new StringBuilder("ABC Test Title");
+
+        TimeStepInfo tsi = new TimeStepInfo(0,0,0,testString.toString(),"NONE");
+
+        for (int i = 0 ; i < 100 ; i++){
+
+            testString.delete(0,testString.length());
+
+            testString.append(i);
+
+            tsi.setTitle(testString.toString());
+
+            assertTrue(testString.toString().equals(tsi.getTitle()));
+
+        }
+
+
+
+
+
+
+
     }
 
     public void testSetDuration() throws Exception {
+        TimeStepInfo tsi = new TimeStepInfo(0,0,0,"None","none");
+
+
+        for(int i = 0 ; i < 10000 ; i++){
+            tsi.setDuration(i);
+            assertEquals(tsi.getDuration(),i);
+        }
 
     }
 
     public void testGetDuration() throws Exception {
+
+        TimeStepInfo tsi = new TimeStepInfo(0,0,0,"None","none");
+
+
+        for(int i = 0 ; i < 10000 ; i++){
+            tsi.setDuration(i);
+            assertEquals(tsi.getDuration(),i);
+        }
+
+
 
     }
 
@@ -45,8 +148,6 @@ public class TimeStepInfoTest extends TestCase {
 
     public void testGetPriority() throws Exception {
 
-
-
         TimeStepInfo tsi = new TimeStepInfo(0,0,0,"None","none");
 
         for(int i = 0 ; i < 100 ; i++){
@@ -59,15 +160,19 @@ public class TimeStepInfoTest extends TestCase {
 
     public void testCompareTo() throws Exception {
 
-            TimeStepInfo low = new TimeStepInfo(0,0,0,"null","null");
-            TimeStepInfo high = new TimeStepInfo(0,0,0,"null","null");
+        TimeStepInfo tsiLow = new TimeStepInfo(0,0,0,"null","null");
+        TimeStepInfo tsiHigh = new TimeStepInfo(0,0,1,"null","null");
 
-        for (int i = 1 ; i < 1024 ; i++){
 
-            assertTrue(low.compareTo(high) < 0);
-
+        for (int i = 1 ; i <= 1024 ; i++){
+            tsiHigh.setPriority(i);
+            assertTrue((tsiLow.compareTo(tsiHigh))  < 0);
         }
 
+        for (int i = 1024  ; i > 0 ; i--){
+            tsiHigh.setPriority(i);
+            assertTrue(tsiHigh.compareTo(tsiLow)  > 0);
+        }
 
     }
 
