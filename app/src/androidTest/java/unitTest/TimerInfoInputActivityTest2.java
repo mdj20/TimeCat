@@ -21,6 +21,9 @@ public class TimerInfoInputActivityTest2 extends ActivityUnitTestCase<TimerInfoI
     protected void setUp() throws Exception {
         super.setUp();
 
+
+
+
         //setup intent from TimerInfoInputActivity class
         Intent checkIntent = new Intent(getInstrumentation().getTargetContext(), TimerInfoInputActivity.class);
         startActivity(checkIntent, null, null);

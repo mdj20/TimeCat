@@ -5,10 +5,11 @@ import android.view.View;
 import android.widget.EditText;
 
 /**
- * Created by matthew on 6/3/15.
+ *  Created by matthew on 6/3/15.
  *
  *      This class will do the actual count down. It must be created with the Views in the constructor.
  *
+ *      The views CAN be updated.
  *
  */
 public class LabTimer
@@ -23,9 +24,7 @@ public class LabTimer
     private EditText minuteEditText;
     private EditText secondEditText;
 
-    private int hour;
-    private int minute;
-    private int second;
+
 
 
     // this will be used for toggling the alarm events and setting the intervlas thagt they occure
@@ -50,12 +49,12 @@ public class LabTimer
         minuteEditText = m;
         secondEditText =s ;
 
-
+        // sets remaining time
         remainingTime = initialTime;
 
         elapsedTime = 0;
 
-        updateOutputs();
+        updateOutputs(remainingTime);
 
 
     }
@@ -65,7 +64,7 @@ public class LabTimer
 
 
 
-        updateOutputs();
+        updateOutputs(remainingTime);
 
         // set countdown timer. must be recreated every start
         long  miliTime = 1000*remainingTime;
@@ -77,7 +76,7 @@ public class LabTimer
 
                 elapsedTime++;
                 remainingTime--;
-                updateOutputs();
+                updateOutputs(remainingTime);
 
 
 
@@ -101,6 +100,8 @@ public class LabTimer
 
     }
 
+
+
     public void stop(){
         countdowntimer.cancel();
 
@@ -108,21 +109,38 @@ public class LabTimer
 
 
 
-    // takes remaining time this may
-    private void updateOutputs(){
-        hour = remainingTime/3600;
+    // split integer representation of time (in seconds) to array of hour/min/sec
+    public int[] splitTime(int inTime){
+
+        int splitTimes[] = new int[3];
+
+
+        splitTimes[0] = inTime/3600;
 
         //set minutes
-        int tempTime = remainingTime%3600;
-        minute = tempTime/60;
+        inTime = inTime%3600;
+        splitTimes[1] = inTime/60;
 
         // set seconds
-        second = tempTime%60;
+        splitTimes[2] = inTime%60;
 
-        hourEditText.setText(String.valueOf(hour));
-        minuteEditText.setText(String.valueOf(minute));
-        secondEditText.setText(String.valueOf(second));
+        return splitTimes;
     }
+
+
+    // takes remaining time and updates outputs
+    private void updateOutputs(int inTime){
+
+        int splitTimes[] = splitTime(inTime);
+
+        hourEditText.setText(String.valueOf(splitTimes[0]));
+        minuteEditText.setText(String.valueOf(splitTimes[1]));
+        secondEditText.setText(String.valueOf(splitTimes[2]));
+
+    }
+
+
+
 
     // sets new output EditTexts
     public void setOutputTargets(EditText h, EditText m, EditText s){
@@ -130,10 +148,11 @@ public class LabTimer
         this.hourEditText = h;
         this.minuteEditText = m;
         this.secondEditText = s;
-        updateOutputs();
+        updateOutputs(remainingTime);
 
 
     }
+
 
     public void sendAlarm(int timeToSend){
 

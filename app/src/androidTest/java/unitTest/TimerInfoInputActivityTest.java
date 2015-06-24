@@ -42,6 +42,8 @@ public class TimerInfoInputActivityTest extends ActivityInstrumentationTestCase2
     //testing function
     @Override
     public void setUp() throws Exception{
+
+
         //setup activity
         super.setUp();
         activity = getActivity();
