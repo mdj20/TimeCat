@@ -60,7 +60,7 @@ public class LabTimer
 
     }
 
-    public void start(){
+    public CountDownTimer start(){
 
 
 
@@ -79,7 +79,11 @@ public class LabTimer
                 remainingTime--;
                 updateOutputs();
 
+
+
                 if (remainingTime == textAlarmThreshold){
+
+                    sendAlarm(remainingTime);
 
                 }
 
@@ -92,6 +96,8 @@ public class LabTimer
         };
 
         countdowntimer.start();
+
+        return countdowntimer;
 
     }
 

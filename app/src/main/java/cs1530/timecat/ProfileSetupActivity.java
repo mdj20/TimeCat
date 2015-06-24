@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+
 import java.util.ArrayList;
 
 
@@ -46,81 +47,7 @@ public class ProfileSetupActivity extends ActionBarActivity {
     }
 
 
-    // called when user hits set button
-    // must hava a value in all integer fields
-    public void setValues(View view) {
 
-        ArrayList<EditText> timeInputViews = new ArrayList<EditText>();
-
-
-
-        // editTexts from layouts
-        timeInputViews.add( (EditText) findViewById(R.id.time_input_0));
-        timeInputViews.add( (EditText) findViewById(R.id.time_input_1));
-        timeInputViews.add( (EditText) findViewById(R.id.time_input_2));
-        timeInputViews.add( (EditText) findViewById(R.id.time_input_2));
-        timeInputViews.add( (EditText) findViewById(R.id.time_input_4));
-
-
-        // null value check ; will only execute below code if timeInputViews doesn't contain and nulls
-        if (containsNullValue(timeInputViews)==false) {
-
-            // ArrayList for integer values
-            ArrayList<Integer> timeValueArrayList = new ArrayList<Integer>();
-
-
-
-            for (EditText et : timeInputViews) {
-                timeValueArrayList.add(new Integer( et.getText().toString()));
-            }
-
-            // create new Intent to start time display activity connects this to next
-            Intent timerIntent = new Intent(this, TimerDisplayActivity.class);
-
-            // add values to intent
-            timerIntent.putExtra(timeValuesID, timeValueArrayList);
-
-            // start Start activity
-            startActivity(timerIntent);
-        }
-
-    }
-
-    //returns true if editText is blank
-    public boolean containsNullValue(ArrayList<EditText> editTextList ){
-
-        boolean result = false;
-
-        for(EditText et : editTextList){
-
-
-            result = et.getText().toString().equals("") || result;
-
-
-        }
-
-
-
-        return result;
-    }
-
-    //returns true if editText is blank
-    public boolean containsNullValueString(ArrayList<String> inStringList ){
-
-        boolean result = false;
-
-        for(String s : inStringList){
-
-
-            result = s.equals("") || result;
-
-
-        }
-
-
-
-        return result;
-    }
 
 
     public void buildNewProcedure(View view){
