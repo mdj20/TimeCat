@@ -3,6 +3,7 @@ package cs1530.timecat;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 /**
  *  Created by matthew on 6/3/15.
@@ -20,9 +21,9 @@ public class LabTimer
     private int initialTime;
     private int remainingTime;
     private int elapsedTime;
-    private EditText hourEditText;
-    private EditText minuteEditText;
-    private EditText secondEditText;
+    private TextView hourEditText;
+    private TextView minuteEditText;
+    private TextView secondEditText;
 
 
 
@@ -39,7 +40,7 @@ public class LabTimer
 
 
     // start time currently in seconds
-    LabTimer(Integer inTime, EditText h, EditText m , EditText s, TimerDisplayActivity tda){
+    LabTimer(Integer inTime, TextView h, TextView m , TextView s, TimerDisplayActivity tda){
 
         timerDisplayActivity = tda;
         initialTime = inTime;
@@ -104,7 +105,6 @@ public class LabTimer
 
     public void stop(){
         countdowntimer.cancel();
-
     }
 
 
@@ -143,7 +143,7 @@ public class LabTimer
 
 
     // sets new output EditTexts
-    public void setOutputTargets(EditText h, EditText m, EditText s){
+    public void setOutputTargets(TextView h, TextView m, TextView s){
 
         this.hourEditText = h;
         this.minuteEditText = m;

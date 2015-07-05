@@ -4,18 +4,14 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextClock;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.EventListener;
 
@@ -32,24 +28,24 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
     ArrayList<TimeStepInfo> timeStepInfos;
     MediaPlayer mediaPlayer;
-    TextView textAlarmEditText;
+    TextView textAlarmTextView;
 
     // main timer
     boolean isRunningMain;
-    EditText currentTaskNameOutput;
-    EditText mainHour;
-    EditText mainMinute;
-    EditText mainSecond;
+    TextView currentTaskNameOutput;
+    TextView mainHour;
+    TextView mainMinute;
+    TextView mainSecond;
 
     int indexOfCurrentTask;
     TimeStepInfo currentTask;
     LabTimer labTimerMain;
 
     //secondary display/timer
-    EditText nextTaskNameOutput;
-    EditText nextHour;
-    EditText nextMinute;
-    EditText nextSecond;
+    TextView nextTaskNameOutput;
+    TextView nextHour;
+    TextView nextMinute;
+    TextView nextSecond;
 
     TimeStepInfo nextTask;
     int indexOfLastTask;
@@ -74,9 +70,9 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
         // get arrayList of TimeStepInfos
         timeStepInfos = intent.getParcelableArrayListExtra(timeValuesID);
-        textAlarmEditText = (TextView) findViewById(R.id.textAlarmEditText);
+        textAlarmTextView = (TextView) findViewById(R.id.textAlarmTextView);
 
-        textAlarmEditText.setText("");
+        textAlarmTextView.setText("");
 
         indexOfCurrentTask = 0;
         indexOfLastTask = timeStepInfos.size()-1;
@@ -85,24 +81,22 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         isRunningMain = false;
 
         // get output views Main
-        currentTaskNameOutput = (EditText)findViewById(R.id.currentTaskNameOutput);
-        mainHour = (EditText)findViewById(R.id.mainHour);
-        mainMinute = (EditText)findViewById(R.id.mainMinute);
-        mainSecond = (EditText)findViewById(R.id.mainSecond);
+        currentTaskNameOutput = (TextView)findViewById(R.id.currentTaskNameOutput);
+        mainHour = (TextView)findViewById(R.id.mainHour);
+        mainMinute = (TextView)findViewById(R.id.mainMinute);
+        mainSecond = (TextView)findViewById(R.id.mainSecond);
 
         // get output views Next
-        nextTaskNameOutput = (EditText)findViewById(R.id.nextTaskNameOutput);
-        nextHour = (EditText)findViewById(R.id.nextHour);
-        nextMinute = (EditText)findViewById(R.id.nextMinute);
-        nextSecond = (EditText)findViewById(R.id.nextSecond);
+        nextTaskNameOutput = (TextView)findViewById(R.id.nextTaskNameOutput);
+        nextHour = (TextView)findViewById(R.id.nextHour);
+        nextMinute = (TextView)findViewById(R.id.nextMinute);
+        nextSecond = (TextView)findViewById(R.id.nextSecond);
 
 
 
 
         startStop = (Button)findViewById(R.id.startStopButton);
 
-        //currentTask = timeStepInfos.get(indexOfCurrentTask);
-        // nextTask = timeStepInfos.get(indexOfCurrentTask+1);
 
         // initialize labTimer on main output
         labTimerMain = initTimer(timeStepInfos.get(indexOfCurrentTask),mainHour,mainMinute,mainSecond,currentTaskNameOutput);
@@ -163,16 +157,6 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         // toggle start and stop
         isRunningMain = (isRunningMain)? stopTimer(labTimerMain) : startTimer(labTimerMain);
 
-        /*
-        if(isRunningMain){
-            b.setText(stopString);
-        }
-        else{
-            b.setText(startString);
-        }
-
-
-        */
         return isRunningMain;
     }
 
@@ -196,8 +180,6 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
         // If not the last step, push next to current
         if( indexOfCurrentTask < indexOfLastTask ){
-
-
 
             nextToMain(timeStepInfos.get(indexOfCurrentTask+1),labTimerNext);
 
@@ -238,13 +220,9 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
 
 
-    private LabTimer initTimer(TimeStepInfo tsi, EditText h, EditText m, EditText s, EditText name){
-
+    private LabTimer initTimer(TimeStepInfo tsi, TextView h, TextView m, TextView s, TextView name){
         name.setText(tsi.getTitle());
-
         return new LabTimer(tsi.getDuration(),h,m,s,this);
-
-
     }
 
 
@@ -255,7 +233,6 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
     // sets main
     private void setMain(TimeStepInfo tsi){
-
         labTimerMain = initTimer(tsi,mainHour,mainMinute,mainSecond,currentTaskNameOutput);
     }
 
@@ -273,7 +250,7 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         if (timeRemaining > 5 ){
 
 
-            showMessage(new String("Step  is almost finished!!!"), textAlarmEditText);
+            showMessage(new String("Step is almost finished!!!"), textAlarmTextView);
 
 
             // text alarm (Do Nothing for now...)
@@ -287,13 +264,55 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
             iterateTimers();
 
 
-            showMessage("", textAlarmEditText);
+            showMessage("", textAlarmTextView);
 
             //audible alarm event
 
         }
         //alarm event and switch
 
+
+    }
+
+
+
+
+    public void menuButtonClick(View inView){
+
+        Button menuButton = (Button)inView;
+
+
+        PopupMenu popupMenu = new PopupMenu(this, menuButton);
+
+        for (TimeStepInfo tsi : timeStepInfos){
+            popupMenu.getMenu().add(Menu.NONE,tsi.getPriority(),tsi.getPriority(),tsi.getTitle());
+        }
+
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+
+
+                if ( indexOfCurrentTask != item.getItemId()) {
+
+                    // pointer to current Lab timer. Must be stopped manually.
+                    labTimerMain.stop();
+                    isRunningMain = false;
+
+                    setMain(timeStepInfos.get(item.getItemId()));
+
+                    if (indexOfLastTask != item.getItemId()){
+                        setNext(timeStepInfos.get(item.getItemId()+1));
+                    }
+
+                }
+
+                return true;
+            }
+        });
+
+
+        popupMenu.show();
 
     }
 
