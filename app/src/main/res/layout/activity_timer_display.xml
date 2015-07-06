@@ -60,7 +60,9 @@
             android:layout_height="match_parent"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/mainHour" />
+            android:id="@+id/mainHour"
+            android:textAlignment="center"
+            android:textSize="60dp" />
 
         <TextView
             android:layout_width="118dp"
@@ -68,7 +70,8 @@
             android:inputType="numberSigned"
             android:ems="10"
             android:id="@+id/mainMinute"
-            android:textSize="@dimen/abc_text_size_large_material" />
+            android:textSize="60dp"
+            android:textAlignment="center" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -77,9 +80,10 @@
             android:ems="10"
             android:id="@+id/mainSecond"
             android:editable="false"
-            android:textSize="@dimen/abc_text_size_large_material"
+            android:textSize="60dp"
             android:phoneNumber="false"
-            android:password="false" />
+            android:password="false"
+            android:textAlignment="center" />
     </LinearLayout>
 
     <LinearLayout
@@ -149,7 +153,7 @@
         android:onClick="menuButtonClick" />
 
     <TableRow
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_below="@+id/linearLayout"
         android:layout_alignParentStart="true"

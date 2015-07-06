@@ -63,7 +63,7 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         setContentView(R.layout.activity_timer_display);
         // new code below
 
-        mediaPlayer = MediaPlayer.create(getApplication(),R.raw.alarm);
+        mediaPlayer = MediaPlayer.create(getApplication(),R.raw.cat_meow);
 
         // get intent from previous Activity
         Intent intent = getIntent();
@@ -155,7 +155,16 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         //Button b = (Button)view;
 
         // toggle start and stop
-        isRunningMain = (isRunningMain)? stopTimer(labTimerMain) : startTimer(labTimerMain);
+
+        if (labTimerMain.isRunning()){
+            stopTimer(labTimerMain);
+        }
+        else{
+            startTimer(labTimerMain);
+        }
+
+
+        //isRunningMain = (isRunningMain)? stopTimer(labTimerMain) : startTimer(labTimerMain);
 
         return isRunningMain;
     }
@@ -164,11 +173,15 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
     public void skip(View view){
 
-        // must stop or it will keep running
-        labTimerMain.stop();
+        if (indexOfCurrentTask != indexOfLastTask) {
+            // must stop or it will keep running
 
-        iterateTimers();
+            if (labTimerMain.isRunning()){
+            labTimerMain.stop();
+            }
+            iterateTimers();
 
+        }
     }
 
 
@@ -181,27 +194,15 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         // If not the last step, push next to current
         if( indexOfCurrentTask < indexOfLastTask ){
 
+            result = true;
+            // iterates next task to main
             nextToMain(timeStepInfos.get(indexOfCurrentTask+1),labTimerNext);
 
-
-
-            result = true;
             // update index
-
-
             // repeat for the next task
-            if ( (indexOfCurrentTask+1) < indexOfLastTask){
-
-                nextTask = timeStepInfos.get(indexOfCurrentTask+2);
+            setNext(indexOfCurrentTask+1);
 
 
-                // if there is no next set as null...
-            }else{
-
-                labTimerNext = initTimer(new TimeStepInfo(0,0,0,"NONE","Null Object"),nextHour,nextMinute,nextSecond,nextTaskNameOutput);
-            }
-
-            indexOfCurrentTask++;
 
 
         } else {
@@ -227,20 +228,28 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
 
     // sets next (Will use Null object for the empty case)
-    private void setNext(TimeStepInfo tsi){
-        labTimerNext = initTimer(tsi,nextHour,nextMinute,nextSecond,nextTaskNameOutput);
+    private void setNext(int i){
+        if ( i < indexOfLastTask ) {
+            labTimerNext = initTimer(timeStepInfos.get(i), nextHour, nextMinute, nextSecond, nextTaskNameOutput);
+        }
+        else{
+            labTimerNext = initTimer(new TimeStepInfo(0,0,0,"NONE","Null Object"),nextHour,nextMinute,nextSecond,nextTaskNameOutput);
+        }
     }
 
     // sets main
-    private void setMain(TimeStepInfo tsi){
-        labTimerMain = initTimer(tsi,mainHour,mainMinute,mainSecond,currentTaskNameOutput);
+    private void setMain(int i){
+        labTimerMain = initTimer(timeStepInfos.get(i),mainHour,mainMinute,mainSecond,currentTaskNameOutput);
+        indexOfCurrentTask = i;
     }
 
     //slides nest to main
     private void nextToMain(TimeStepInfo nextTsi,LabTimer next){
+
         currentTaskNameOutput.setText(nextTsi.getTitle());
-        next.setOutputTargets(mainHour,mainMinute,mainSecond);
+        next.setOutputTargets(mainHour, mainMinute, mainSecond);
         labTimerMain = labTimerNext;
+        indexOfCurrentTask++;
 
     }
 
@@ -276,11 +285,10 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
 
 
-
+    // mthod that creates the menu for step skipping
     public void menuButtonClick(View inView){
 
         Button menuButton = (Button)inView;
-
 
         PopupMenu popupMenu = new PopupMenu(this, menuButton);
 
@@ -296,14 +304,13 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
                 if ( indexOfCurrentTask != item.getItemId()) {
 
                     // pointer to current Lab timer. Must be stopped manually.
-                    labTimerMain.stop();
-                    isRunningMain = false;
-
-                    setMain(timeStepInfos.get(item.getItemId()));
-
-                    if (indexOfLastTask != item.getItemId()){
-                        setNext(timeStepInfos.get(item.getItemId()+1));
+                    if ( labTimerMain.isRunning() == true) {
+                        labTimerMain.stop();
                     }
+
+                    setMain(item.getItemId());
+                    setNext(item.getItemId()+1);
+
 
                 }
 
