@@ -6,4 +6,5 @@
     <string name="title_activity_timer_array">TimerArrayActivity</string>
     <string name="title_activity_timer_display">TimerDisplayActivity</string>
     <string name="title_activity_timer_info_input">TimerInfoInputActivity</string>
+    <string name="title_activity_procedure_name_retrieval">Procedure_name_retrieval</string>
 </resources>

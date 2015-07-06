@@ -1,6 +1,7 @@
 package cs1530.timecat;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -23,6 +24,8 @@ public class TimerInfoInputActivity extends ActionBarActivity {
     EditText info;
     ProcedureBuilder procedureBuilder;
     int numOfSteps;
+    String procedure_name;
+    private DbHelper db;
 
 
     @Override
@@ -32,9 +35,11 @@ public class TimerInfoInputActivity extends ActionBarActivity {
 
         Intent launchIntent = getIntent();
         numOfSteps = launchIntent.getIntExtra(numOfStepsKey,0);
+        procedure_name = launchIntent.getStringExtra("procedure_name");
 
         //initialise parameters and identify views
         setNumberPickerParameters();
+        db = new DbHelper(this);
 
         name = (EditText)findViewById(R.id.nameEditText);
         info = (EditText)findViewById(R.id.infoEditText);
@@ -84,6 +89,8 @@ public class TimerInfoInputActivity extends ActionBarActivity {
         // collect last values
         saveAndNext(view);
 
+        writeToDb();
+
         // set new intent
         Intent timerDisplayIntent = new Intent(this,TimerDisplayActivity.class);
 
@@ -95,6 +102,18 @@ public class TimerInfoInputActivity extends ActionBarActivity {
 
 
 
+    }
+
+    private boolean writeToDb(){
+
+        TimeStepInfo step;
+        for(int i = 0; i < procedureBuilder.size(); i++)
+        {
+            step = procedureBuilder.get(i);
+            db.insert(step.getPriority(),step.getDuration(),step.getPriority(),step.getProcedure(),step.getTitle(),step.getNotes()); //insert(int id, int duration, int priority,String procedure, String title, String notes)
+        }
+
+        return true;
     }
 
 
@@ -109,7 +128,7 @@ public class TimerInfoInputActivity extends ActionBarActivity {
         //converts values to seconds
         int durationInSeconds = ((hours*60)+minutes)*60+seconds;
 
-        TimeStepInfo timeStepInfo = new TimeStepInfo(durationInSeconds,procedureBuilder.size(),procedureBuilder.size(),name.getText().toString(),info.getText().toString());
+        TimeStepInfo timeStepInfo = new TimeStepInfo(durationInSeconds,procedureBuilder.size(),procedureBuilder.size(),procedure_name,name.getText().toString(),info.getText().toString());
 
         return timeStepInfo;
     }

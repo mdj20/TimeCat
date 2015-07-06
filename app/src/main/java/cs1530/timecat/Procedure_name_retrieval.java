@@ -1,47 +1,29 @@
 package cs1530.timecat;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 
 
-import java.util.ArrayList;
+import cs1530.timecat.R;
 
-
-public class ProfileSetupActivity extends ActionBarActivity {
-
-
-    private static final String timeValuesID = "timeValues";
-    private static final String numOfStepsKey = "numOfSteps";
-
-    private DbHelper db;
+public class Procedure_name_retrieval extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_setup);
-        db = new DbHelper(this);
+        setContentView(R.layout.activity_procedure_name_retrieval);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-
-        menu.clear();
-
-        ArrayList<String> procedure_list = new ArrayList<String>();
-        procedure_list = db.getProcedureNames();
-
-        for(int i = 0; i < procedure_list.size(); i++)
-        {
-            menu.add(procedure_list.get(i));
-        }
-
-        getMenuInflater().inflate(R.menu.menu_profile_setup, menu);
+        getMenuInflater().inflate(R.menu.menu_procedure_name_retrieval, menu);
         return true;
     }
 
@@ -60,16 +42,20 @@ public class ProfileSetupActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //called when the user clicks the next button.
+    public void nextButton(View view)
+    {
+        String procedure_name = getText();
 
+        Intent next_intent = new Intent(getApplicationContext(), TimerInfoInputActivity.class);
+        next_intent.putExtra("procedure_name",procedure_name);
+        next_intent.putExtra("numOfSteps",0);
+        startActivity(next_intent);
+    }
 
-
-
-    public void buildNewProcedure(View view){
-
-        Intent procedureIntent = new Intent(this,Procedure_name_retrieval.class);
-
-        startActivity(procedureIntent);
-
-
+    private String getText()
+    {
+        EditText new_procedure_name_input = (EditText)findViewById(R.id.pro_name);
+        return new_procedure_name_input.getText().toString();
     }
 }
