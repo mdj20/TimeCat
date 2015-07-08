@@ -196,6 +196,8 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
     // iterates through timers returns false if the last timer has compleated
     public boolean iterateTimers(){
 
+        clearMessageAlarm();
+
         boolean result = false;
 
         // If not the last step, push next to current
@@ -214,10 +216,11 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
         } else {
 
-
             // end timer
             currentTask = null;
             // set as null
+
+            //ADD return to the begining  code
 
         }
 
@@ -312,11 +315,12 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
                     // pointer to current Lab timer. Must be stopped manually.
                     if ( labTimerMain.isRunning() == true) {
-                                                labTimerMain.stop();
+                        labTimerMain.stop();
                     }
 
+                    clearMessageAlarm();
                     setMain(item.getItemId());
-                    setNext(item.getItemId()+1);
+                    setNext(item.getItemId() + 1);
 
 
 
@@ -331,6 +335,10 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
     }
 
+
+    private void clearMessageAlarm(){
+        showMessage("",textAlarmTextView);
+    }
 
     private void showMessage(String message, TextView target){
 
