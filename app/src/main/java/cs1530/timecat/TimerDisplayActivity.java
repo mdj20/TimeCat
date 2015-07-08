@@ -248,6 +248,7 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
     // sets main
     private void setMain(int i){
        labTimerMain = initTimer(timeStepInfos.get(i),mainHour,mainMinute,mainSecond,currentTaskNameOutput);
+        indexOfCurrentTask = i;
     }
 
     //slides nest to main
