@@ -16,8 +16,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        >
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".ProfileSetupActivity"
             android:label="@string/app_name" >
@@ -34,6 +33,10 @@
         <activity
             android:name=".TimerInfoInputActivity"
             android:label="@string/title_activity_timer_info_input" >
+        </activity>
+        <activity
+            android:name=".Procedure_name_retrieval"
+            android:label="@string/title_activity_procedure_name_retrieval" >
         </activity>
     </application>
 

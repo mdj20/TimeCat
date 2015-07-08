@@ -24,26 +24,26 @@ public class TimeStepInfo implements Comparable<TimeStepInfo> , Parcelable {
 
         // can be set from index
         private int priority;
-
+        private String procedure;
         private String title;
         private String notes;
 
 
         // explicit constructor
-        TimeStepInfo(int d, int i, int p , String t, String n ){
+        TimeStepInfo(int d, int i, int p , String pro, String t, String n ){
 
             this.duration = d;
             this.id= i ;
             this.priority = p;
             this.title = t ;
             this.notes = n ;
-
+            this.procedure = pro;
         }
 
         // Overloaded constructor
-        TimeStepInfo(int d, int i, int p){
+        TimeStepInfo(int d, int i, int p, String pro){
 
-            this( d, i,  p,"", "");
+            this( d, i,  p,pro,"", "");
 
         }
 
@@ -53,6 +53,7 @@ public class TimeStepInfo implements Comparable<TimeStepInfo> , Parcelable {
             this.duration = in.readInt();
             this.id = in.readInt();
             this.priority = in.readInt();
+            this.procedure = in.readString();
             this.title = in.readString();
             this.notes = in.readString();
         }
@@ -78,7 +79,9 @@ public class TimeStepInfo implements Comparable<TimeStepInfo> , Parcelable {
             return title;
         }
 
+        public void setProcedure(String pro) {procedure = pro;}
 
+        public String getProcedure(){return procedure;}
 
         public void setDuration( int d){
             duration = d;
@@ -120,6 +123,7 @@ public class TimeStepInfo implements Comparable<TimeStepInfo> , Parcelable {
             dest.writeInt(this.duration);
             dest.writeInt(this.id);
             dest.writeInt(this.priority);
+            dest.writeString(this.procedure);
             dest.writeString(this.title);
             dest.writeString(this.notes);
 
