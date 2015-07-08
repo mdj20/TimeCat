@@ -25,7 +25,7 @@ public class LabTimer
     private TextView minuteEditText;
     private TextView secondEditText;
 
-
+    private boolean running;
 
 
     // this will be used for toggling the alarm events and setting the intervlas thagt they occure
@@ -44,6 +44,7 @@ public class LabTimer
 
         timerDisplayActivity = tda;
         initialTime = inTime;
+        running = false;
 
         //output fields
         hourEditText = h;
@@ -63,7 +64,7 @@ public class LabTimer
     public CountDownTimer start(){
 
 
-
+        running = true;
 
         updateOutputs(remainingTime);
 
@@ -104,6 +105,9 @@ public class LabTimer
 
 
     public void stop(){
+
+        running = false;
+
         countdowntimer.cancel();
     }
 
@@ -158,6 +162,11 @@ public class LabTimer
 
         timerDisplayActivity.alarmEvent(timeToSend);
     }
+
+
+        public boolean isRunning(){
+            return running;
+        }
 
 
 }
