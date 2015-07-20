@@ -38,6 +38,10 @@
             android:name=".Procedure_name_retrieval"
             android:label="@string/title_activity_procedure_name_retrieval" >
         </activity>
+        <activity
+            android:name=".ProcedureMenuActivity"
+            android:label="@string/title_activity_procedure_menu" >
+        </activity>
     </application>
 
 </manifest>
