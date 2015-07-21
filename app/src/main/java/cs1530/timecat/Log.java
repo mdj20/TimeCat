@@ -16,13 +16,14 @@ public class Log implements Parcelable {
 
         private Date timeStarted;
         private Date timeFinished;
-        private boolean isFinshed;
+        private boolean finished;
+        private long interval;
 
          Log(TimeStepInfo inTsi,  Date inDate){
 
             tsi = inTsi;
             timeStarted = inDate;
-            isFinshed = false;
+            finished = false;
 
 
         }
@@ -33,6 +34,7 @@ public class Log implements Parcelable {
             this.tsi = in.readParcelable(TimeStepInfo.class.getClassLoader());
             this.timeStarted = new Date(in.readLong());
             this.timeFinished = new Date(in.readLong());
+            this.interval = in.readLong();
         }
 
 
@@ -46,13 +48,27 @@ public class Log implements Parcelable {
             return timeStarted;
         }
 
-        public boolean isFinshed(){
-            return isFinshed;
+        public Date getTimeFinished(){
+            return timeFinished;
+        }
+
+        public long getInterval(){
+            return interval;
+        }
+
+        public boolean isFinished(){
+            return finished;
         }
 
         public void setTimeFinished(Date d){
-            timeFinished = d;
+            if (!finished) {
+                timeFinished = d;
+                interval = timeFinished.compareTo(timeStarted);
+                finished = true;
+            }
         }
+
+
 
     // parcelable
 
@@ -66,8 +82,9 @@ public class Log implements Parcelable {
         dest.writeParcelable(this.tsi, flags);
         dest.writeLong(timeStarted.getTime());
         dest.writeLong(timeFinished.getTime());
+        dest.writeLong(interval);
 
-        dest.writeByte( (byte) (isFinshed?1:0) );
+        dest.writeByte( (byte) (finished?1:0) );
 
     }
 
