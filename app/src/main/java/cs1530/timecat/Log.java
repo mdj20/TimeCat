@@ -58,7 +58,7 @@ public class Log implements Parcelable {
         public void setTimeFinished(Date d){
             if (!finished) {
                 timeFinished = d;
-                interval = timeFinished.compareTo(timeStarted);
+                interval = timeFinished.getTime() - timeStarted.getTime();
                 finished = true;
             }
         }

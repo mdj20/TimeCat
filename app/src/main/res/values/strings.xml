@@ -8,4 +8,5 @@
     <string name="title_activity_timer_info_input">TimerInfoInputActivity</string>
     <string name="title_activity_procedure_name_retrieval">Procedure_name_retrieval</string>
     <string name="title_activity_procedure_menu">ProcedureMenuActivity</string>
+    <string name="title_activity_report_viewer">ReportViewerActivity</string>
 </resources>

@@ -68,6 +68,7 @@ public class RecordLogger {
             for (Log l : logger) {
 
                 if (!l.isFinished()) {
+
                     l.setTimeFinished(new Date());
                 }
             }
