@@ -149,6 +149,9 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
         inLabTimer.start();
 
+        logger.addRecord(timeStepInfos.get(indexOfCurrentTask),1);
+
+
         return true;
     }
 
@@ -156,6 +159,9 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
     public boolean stopTimer(LabTimer inLabTimer){
 
         // this method will start the countdown
+
+        logger.addRecord(timeStepInfos.get(indexOfCurrentTask),2);
+
         inLabTimer.stop();
         return false;
     }
@@ -191,7 +197,11 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
                        // must stop or it will keep running
 
                      if (labTimerMain.isRunning()){
-                            labTimerMain.stop();
+
+                         labTimerMain.stop();
+
+                         logger.addRecord(timeStepInfos.get(indexOfCurrentTask),4);
+
                             }
                         iterateTimers();
 
@@ -286,6 +296,8 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
             mediaPlayer.start();
 
             isRunningMain = false;
+
+            logger.addRecord(timeStepInfos.get(indexOfCurrentTask),3);
             iterateTimers();
 
 

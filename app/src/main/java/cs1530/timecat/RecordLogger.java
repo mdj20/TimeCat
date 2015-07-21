@@ -18,37 +18,73 @@ public class RecordLogger {
     private ArrayList<Log> logger;
     private String procedure = null;
     private Date timeCreated;
+    private Log started = null;
+    private boolean logStarted;
+    private int numOfFinishedLogs;
 
 
-    //creates ne record requires procedure name
-    public RecordLogger(){
-
+    //creates new record
+       public RecordLogger(){
 
         logger = new ArrayList<Log>();
         timeCreated = new Date();
-
+        logStarted = false;
+           numOfFinishedLogs = 0;
 
     }
 
 
-    //add a record to the logger. The Type defines the nature of the evelt
-    // 1 = user start
-    // 2 = user stop/pause
-    // 3 = equals stop by end of timer
-    // 4 = stop due to skip
-    public void addRecord(TimeStepInfo tsi, int type){
+
+
+    public void StartLog(TimeStepInfo tsi){
 
         // if procedure name hasn't been set, set procedure field
-        if(procedure == null){
+        if (procedure == null){
             procedure = tsi.getProcedure();
         }
 
+        if (logStarted){
+           endLog();
+        }
         // add new record
-        logger.add(new Log(tsi,type,new Date()));
+        started = new Log(tsi,new Date());
+        logStarted = true;
     }
 
 
+    public void endLog(){
+
+        if (logStarted){
+
+            started.setTimeFinished(new Date());
+            logger.add(started);
+            logStarted = false;
+            numOfFinishedLogs++;
+        }
+
+    }
+
+
+    // close any non finished log in the logger ARrayList
+    public void finishLogger(){
+
+        if (numOfFinishedLogs < logger.size()) {
+
+            for (Log l : logger) {
+
+                if (!l.isFinshed()) {
+
+                    l.setTimeFinished(new Date());
+
+                }
+
+            }
+        }
+    }
+
     public ArrayList<Log> getLogArrayList(){
+
+        finishLogger();
         return logger;
     }
 
