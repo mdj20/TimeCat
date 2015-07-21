@@ -72,4 +72,10 @@ public class ProfileSetupActivity extends ActionBarActivity {
 
 
     }
+
+    public void loadProcedure(View view){
+        Intent loadProcedureIntent = new Intent(this, ProcedureMenuActivity.class);
+
+        startActivity(loadProcedureIntent);
+    }
 }

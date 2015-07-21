@@ -17,7 +17,11 @@ import java.util.concurrent.TimeoutException;
 public class DbHelper extends SQLiteOpenHelper{
 
     private static final String DATABASE_NAME = "TimeCate.db";
-    private static final String DATABASE_TABLE = "AllProcedures";
+    private static final String DATABASE_TABLE_ALLPROCEDURES = "AllProcedures";
+    private static final String DATABASE_TABLE_PROFILE = "Profile";
+    private static final String CREATE_ALLPROCEDURES_TABLE = "CREATE TABLE AllProcedures (id integer primary key AUTOINCREMENT, duration integer, priority integer,procedure text, title text, notes text)";
+    //private static final String CREATE_PROFILE_TABLE = "CREATE TABLE Profile (username TEXT PRIMARY KEY, password TEXT)";
+
     public DbHelper(Context context)
     {
         super(context, DATABASE_NAME , null, 1);
@@ -25,21 +29,23 @@ public class DbHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db){
-        db.execSQL("CREATE TABLE AllProcedures (id integer primary key, duration integer, priority integer,procedure text, title text, notes text)");
+        db.execSQL(CREATE_ALLPROCEDURES_TABLE);
+        //db.execSQL(CREATE_PROFILE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // TODO Auto-generated method stub
-        db.execSQL("DROP TABLE IF EXISTS AllProcedures");
+        db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE_ALLPROCEDURES+ "");
+        db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE_PROFILE + "");
         onCreate(db);
     }
 
-    public boolean insert(int id, int duration, int priority,String procedure, String title, String notes)
+    public boolean insert_procedure(int duration, int priority,String procedure, String title, String notes)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("id", id);
+        //values.put("id", id);
         values.put("duration", duration);
         values.put("priority", priority);
         values.put("procedure", procedure);
@@ -48,6 +54,16 @@ public class DbHelper extends SQLiteOpenHelper{
         db.insert("AllProcedures", null, values);
         return true;
     }
+
+    /*public boolean insert_profile(String user, String pwd)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("username", user);
+        values.put("password", pwd);
+        db.insert(DATABASE_TABLE_PROFILE, null, values);
+        return true;
+    }*/
 
     public ArrayList<String> getProcedureNames()
     {
@@ -62,6 +78,8 @@ public class DbHelper extends SQLiteOpenHelper{
             procedures.add(curs.getString(curs.getColumnIndex("procedure")));
             curs.moveToNext();
         }
+
+        curs.close();
         return procedures;
     }
 
@@ -71,7 +89,7 @@ public class DbHelper extends SQLiteOpenHelper{
         String pro,t,n;
         ProcedureBuilder pb = new ProcedureBuilder();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor curs = db.rawQuery("SELECT * FROM AllProcedures WHERE procedure ="+name+"",null);
+        Cursor curs = db.rawQuery("SELECT * FROM AllProcedures WHERE procedure = ?",new String[] {name});
 
         curs.moveToFirst();
 
@@ -83,11 +101,12 @@ public class DbHelper extends SQLiteOpenHelper{
             pro = curs.getString(curs.getColumnIndex("procedure"));
             t = curs.getString(curs.getColumnIndex("title"));
             n = curs.getString(curs.getColumnIndex("notes"));
-            TimeStepInfo ts = new TimeStepInfo(d,i,pri,pro,t,n);
+            TimeStepInfo ts = new TimeStepInfo(d,pri,pro,t,n);
             pb.add(ts);
             curs.moveToNext();
         }
 
+        curs.close();
         return pb;
     }
 

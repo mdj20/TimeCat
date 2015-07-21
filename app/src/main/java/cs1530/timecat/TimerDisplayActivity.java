@@ -251,7 +251,7 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
             labTimerNext = initTimer(timeStepInfos.get(i), nextHour, nextMinute, nextSecond, nextTaskNameOutput);
         }
         else{
-            labTimerNext = initTimer(new TimeStepInfo(0,0,0,"End","NONE","Null Object"),nextHour,nextMinute,nextSecond,nextTaskNameOutput);
+            labTimerNext = initTimer(new TimeStepInfo(0,0,"End","NONE","Null Object"),nextHour,nextMinute,nextSecond,nextTaskNameOutput);
         }
     }
 

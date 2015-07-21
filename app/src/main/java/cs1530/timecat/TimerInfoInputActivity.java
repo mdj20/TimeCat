@@ -110,7 +110,7 @@ public class TimerInfoInputActivity extends ActionBarActivity {
         for(int i = 0; i < procedureBuilder.size(); i++)
         {
             step = procedureBuilder.get(i);
-            db.insert(step.getPriority(),step.getDuration(),step.getPriority(),step.getProcedure(),step.getTitle(),step.getNotes()); //insert(int id, int duration, int priority,String procedure, String title, String notes)
+            db.insert_procedure(step.getDuration(),step.getPriority(),step.getProcedure(),step.getTitle(),step.getNotes()); //insert(int id, int duration, int priority,String procedure, String title, String notes)
         }
 
         return true;
@@ -128,7 +128,7 @@ public class TimerInfoInputActivity extends ActionBarActivity {
         //converts values to seconds
         int durationInSeconds = ((hours*60)+minutes)*60+seconds;
 
-        TimeStepInfo timeStepInfo = new TimeStepInfo(durationInSeconds,procedureBuilder.size(),procedureBuilder.size(),procedure_name,name.getText().toString(),info.getText().toString());
+        TimeStepInfo timeStepInfo = new TimeStepInfo(durationInSeconds,procedureBuilder.size(),procedure_name,name.getText().toString(),info.getText().toString());
 
         return timeStepInfo;
     }
