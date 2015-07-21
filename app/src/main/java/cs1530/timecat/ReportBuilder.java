@@ -20,6 +20,7 @@ public class ReportBuilder {
 
 
 
+    // this method will create
     public void createLogStrings(){
 
         logStrings = new ArrayList<String>();

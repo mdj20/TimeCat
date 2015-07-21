@@ -72,7 +72,7 @@ public class RecordLogger {
 
             for (Log l : logger) {
 
-                if (!l.isFinshed()) {
+                if (!l.isFinished()) {
 
                     l.setTimeFinished(new Date());
 

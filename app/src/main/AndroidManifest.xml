@@ -42,6 +42,10 @@
             android:name=".ProcedureMenuActivity"
             android:label="@string/title_activity_procedure_menu" >
         </activity>
+        <activity
+            android:name=".ReportViewerActivity"
+            android:label="@string/title_activity_report_viewer" >
+        </activity>
     </application>
 
 </manifest>
