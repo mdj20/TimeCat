@@ -60,16 +60,11 @@ public class ProfileSetupActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
-
-
     public void buildNewProcedure(View view){
 
         Intent procedureIntent = new Intent(this,Procedure_name_retrieval.class);
 
         startActivity(procedureIntent);
-
 
     }
 

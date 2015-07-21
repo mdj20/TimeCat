@@ -26,7 +26,6 @@ public class TimerInfoInputActivityTest extends ActivityInstrumentationTestCase2
     private EditText inputName;
     private TimerInfoInputActivity activity;
 
-
     //defualt constructor
     public TimerInfoInputActivityTest() {
         super(TimerInfoInputActivity.class);
@@ -36,25 +35,20 @@ public class TimerInfoInputActivityTest extends ActivityInstrumentationTestCase2
     public void testActivityExists() {
         TimerInfoInputActivity activity = getActivity();
         assertNotNull(activity);
-
     }
 
     //testing function
     @Override
     public void setUp() throws Exception{
 
-
         //setup activity
         super.setUp();
         activity = getActivity();
     }
-
     public void testFunction() throws Exception{
 
         //text field
-
         inputName = (EditText) activity.findViewById(R.id.nameEditText);
-
         getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
@@ -68,25 +62,16 @@ public class TimerInfoInputActivityTest extends ActivityInstrumentationTestCase2
         getInstrumentation().sendStringSync("5");
         getInstrumentation().waitForIdleSync();
 
-
         //button section
         setValues = (Button) activity.findViewById(R.id.buttonNext);
-
         done = (Button)activity.findViewById(R.id.buttonDone);
 
         //perform click
-
         TouchUtils.clickView(this, setValues);
 
         //verify numbers
-
         //  TextView greetMessage = (TextView) activity.findViewById(R.id.message_text_view);
-
         String actualText = inputName.getText().toString();
-
         assertEquals("", actualText);
-
     }
-
-
 }

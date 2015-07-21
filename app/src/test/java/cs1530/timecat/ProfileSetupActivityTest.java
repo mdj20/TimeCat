@@ -12,8 +12,6 @@ import java.util.ArrayList;
 public class ProfileSetupActivityTest extends TestCase {
 
 
-
-
     public void testContainsNullValue() throws Exception {
 
         boolean result;
@@ -37,10 +35,6 @@ public class ProfileSetupActivityTest extends TestCase {
 
         result = profilesetupactivity.containsNullValueString(goodCase);
         assertEquals(false,result);
-
-
-
-
 
     }
 }

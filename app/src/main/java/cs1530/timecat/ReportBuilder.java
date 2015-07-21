@@ -15,10 +15,7 @@ public class ReportBuilder {
 
         logs = inLoggerList;
 
-
     }
-
-
 
     public void createLogStrings(){
 
@@ -40,11 +37,5 @@ public class ReportBuilder {
             sb.setLength(0);
 
         }
-
-
     }
-
-
-
-
 }

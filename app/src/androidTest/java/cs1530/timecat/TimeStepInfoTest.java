@@ -7,10 +7,9 @@ import junit.framework.TestCase;
  */
 public class TimeStepInfoTest extends TestCase {
 
-    
 
     public void testSetNotes() throws Exception {
-
+/*
         StringBuilder testString = new StringBuilder("ABC Test Title");
 
         TimeStepInfo tsi = new TimeStepInfo(0,0,0,testString.toString(),"NONE");
@@ -26,9 +25,6 @@ public class TimeStepInfoTest extends TestCase {
             assertTrue(testString.toString().equals(tsi.getTitle()));
 
         }
-
-
-
     }
 
     public void testGetNotes() throws Exception {
@@ -48,17 +44,9 @@ public class TimeStepInfoTest extends TestCase {
             assertTrue(testString.toString().equals(tsi.getTitle()));
 
         }
-
-
-
-
-
     }
 
     public void testSetTitle() throws Exception {
-
-
-
 
         StringBuilder testString = new StringBuilder("ABC Test Title");
 
@@ -75,14 +63,7 @@ public class TimeStepInfoTest extends TestCase {
             assertTrue(testString.toString().equals(tsi.getTitle()));
 
         }
-
-
-
-
-
-
     }
-
     public void testGetTitle() throws Exception {
 
         StringBuilder testString = new StringBuilder("ABC Test Title");
@@ -100,13 +81,6 @@ public class TimeStepInfoTest extends TestCase {
             assertTrue(testString.toString().equals(tsi.getTitle()));
 
         }
-
-
-
-
-
-
-
     }
 
     public void testSetDuration() throws Exception {
@@ -124,26 +98,20 @@ public class TimeStepInfoTest extends TestCase {
 
         TimeStepInfo tsi = new TimeStepInfo(0,0,0,"None","none");
 
-
         for(int i = 0 ; i < 10000 ; i++){
             tsi.setDuration(i);
             assertEquals(tsi.getDuration(),i);
         }
-
-
-
     }
 
     public void testSetPriority() throws Exception {
 
         TimeStepInfo tsi = new TimeStepInfo(0,0,0,"None","none");
 
-
         for(int i = 0 ; i < 100 ; i++){
             tsi.setPriority(i);
             assertEquals(tsi.getPriority(),i);
         }
-
     }
 
     public void testGetPriority() throws Exception {
@@ -154,15 +122,12 @@ public class TimeStepInfoTest extends TestCase {
             tsi.setPriority(i);
             assertEquals(tsi.getPriority(),i);
         }
-
-
     }
 
     public void testCompareTo() throws Exception {
 
         TimeStepInfo tsiLow = new TimeStepInfo(0,0,0,"null","null");
         TimeStepInfo tsiHigh = new TimeStepInfo(0,0,1,"null","null");
-
 
         for (int i = 1 ; i <= 1024 ; i++){
             tsiHigh.setPriority(i);
@@ -173,7 +138,6 @@ public class TimeStepInfoTest extends TestCase {
             tsiHigh.setPriority(i);
             assertTrue(tsiHigh.compareTo(tsiLow)  > 0);
         }
-
     }
 
     public void testDescribeContents() throws Exception {
@@ -181,6 +145,6 @@ public class TimeStepInfoTest extends TestCase {
     }
 
     public void testWriteToParcel() throws Exception {
-
+*/
     }
 }

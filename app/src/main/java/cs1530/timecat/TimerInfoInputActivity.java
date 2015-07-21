@@ -98,10 +98,6 @@ public class TimerInfoInputActivity extends ActionBarActivity {
         timerDisplayIntent.putParcelableArrayListExtra(timeValuesID,procedureBuilder);
 
         startActivity(timerDisplayIntent);
-
-
-
-
     }
 
     private boolean writeToDb(){
@@ -115,7 +111,6 @@ public class TimerInfoInputActivity extends ActionBarActivity {
 
         return true;
     }
-
 
     // constructs TimeStepInfo from view values
     private TimeStepInfo valuesToObject(){
@@ -132,7 +127,6 @@ public class TimerInfoInputActivity extends ActionBarActivity {
 
         return timeStepInfo;
     }
-
 
     // initialize numberPickers and sets min max value parameters
     private void setNumberPickerParameters(){
@@ -156,8 +150,6 @@ public class TimerInfoInputActivity extends ActionBarActivity {
         }
     }
 
-
-
     // sets min and max values
     private void setMinMax(NumberPicker np, int min ,int max){
         np.setMinValue(min);
@@ -174,5 +166,4 @@ public class TimerInfoInputActivity extends ActionBarActivity {
             numberPickers[i].setValue(0);
         }
     }
-
 }

@@ -109,5 +109,4 @@ public class DbHelper extends SQLiteOpenHelper{
         curs.close();
         return pb;
     }
-
 }

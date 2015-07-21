@@ -24,8 +24,6 @@ public class Log implements Parcelable {
             tsi = inTsi;
             timeStarted = inDate;
             finished = false;
-
-
         }
 
         //create by parcel
@@ -37,12 +35,9 @@ public class Log implements Parcelable {
             this.interval = in.readLong();
         }
 
-
         public TimeStepInfo getTimeStepInfo(){
             return tsi;
         }
-
-
 
         public Date getTimeStarted() {
             return timeStarted;
@@ -68,8 +63,6 @@ public class Log implements Parcelable {
             }
         }
 
-
-
     // parcelable
 
     @Override
@@ -87,10 +80,7 @@ public class Log implements Parcelable {
         dest.writeByte( (byte) (finished?1:0) );
 
     }
-
-
     public static final Parcelable.Creator<Log> CREATOR = new Parcelable.Creator<Log>() {
-
 
         @Override
         public Log createFromParcel(Parcel source){
@@ -103,10 +93,6 @@ public class Log implements Parcelable {
         }
 
     };
-
-
-
-
 }
 
 

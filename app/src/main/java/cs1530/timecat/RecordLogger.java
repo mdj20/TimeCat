@@ -33,9 +33,6 @@ public class RecordLogger {
 
     }
 
-
-
-
     public void StartLog(TimeStepInfo tsi){
 
         // if procedure name hasn't been set, set procedure field
@@ -51,7 +48,6 @@ public class RecordLogger {
         logStarted = true;
     }
 
-
     public void endLog(){
 
         if (logStarted){
@@ -64,7 +60,6 @@ public class RecordLogger {
 
     }
 
-
     // close any non finished log in the logger ARrayList
     public void finishLogger(){
 
@@ -72,16 +67,12 @@ public class RecordLogger {
 
             for (Log l : logger) {
 
-                if (!l.isFinshed()) {
-
+                if (!l.isFinished()) {
                     l.setTimeFinished(new Date());
-
                 }
-
             }
         }
     }
-
     public ArrayList<Log> getLogArrayList(){
 
         finishLogger();
@@ -95,8 +86,5 @@ public class RecordLogger {
     public String getProcedure(){
         return procedure;
     }
-
-
-
 
 }

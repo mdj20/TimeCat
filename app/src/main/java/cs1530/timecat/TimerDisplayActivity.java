@@ -26,8 +26,6 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
     RecordLogger logger;
 
-
-
     ArrayList<TimeStepInfo> timeStepInfos;
     MediaPlayer mediaPlayer;
     TextView textAlarmTextView;
@@ -57,15 +55,11 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
     private DbHelper db;
 
-
-
-
     // boiler plate code
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer_display);
-
 
         // new code below
 
@@ -100,9 +94,6 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         nextMinute = (TextView)findViewById(R.id.nextMinute);
         nextSecond = (TextView)findViewById(R.id.nextSecond);
 
-
-
-
         startStop = (Button)findViewById(R.id.startStopButton);
 
         logger = new RecordLogger();
@@ -114,9 +105,6 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         if ((indexOfCurrentTask+1) < timeStepInfos.size()){
             labTimerNext = initTimer(timeStepInfos.get(indexOfCurrentTask+1),nextHour,nextMinute,nextSecond,nextTaskNameOutput);
         }
-
-
-
     }
 
 
@@ -151,7 +139,6 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
         logger.StartLog(timeStepInfos.get(indexOfCurrentTask));
 
-
         return true;
     }
 
@@ -165,7 +152,6 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         inLabTimer.stop();
         return false;
     }
-
 
     // toggle start stop return isRunning value
     public boolean startStop(View view){
@@ -181,15 +167,10 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
             startTimer(labTimerMain);
         }
 
-
-
-
         //isRunningMain = (isRunningMain)? stopTimer(labTimerMain) : startTimer(labTimerMain);
 
         return isRunningMain;
     }
-
-
 
     public void skip(View view){
 
@@ -207,8 +188,6 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
                    }
     }
 
-
-
     // iterates through timers returns false if the last timer has compleated
     public boolean iterateTimers(){
 
@@ -219,11 +198,8 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         // If not the last step, push next to current
         if( indexOfCurrentTask < indexOfLastTask ){
 
-
             result = true;
             nextToMain(timeStepInfos.get(indexOfCurrentTask+1),labTimerNext);
-
-
 
 
             // update index
@@ -240,18 +216,14 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
         }
 
-
         return result;
 
     }
-
-
 
     private LabTimer initTimer(TimeStepInfo tsi, TextView h, TextView m, TextView s, TextView name){
         name.setText(tsi.getTitle());
         return new LabTimer(tsi.getDuration(),h,m,s,this);
     }
-
 
     // sets next (Will use Null object for the empty case)
     private void setNext(int i){
@@ -283,9 +255,7 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         // if there is more than 5 seconds left then its just a txt notification
         if (timeRemaining > 5 ){
 
-
             showMessage(new String("Step is almost finished!!!"), textAlarmTextView);
-
 
             // text alarm (Do Nothing for now...)
         }
@@ -299,7 +269,6 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
             logger.endLog();
             iterateTimers();
 
-
             showMessage("", textAlarmTextView);
 
             //audible alarm event
@@ -307,23 +276,18 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         }
         //alarm event and switch
 
-
     }
-
-
 
     // mthod that creates the menu for step skipping
     public void menuButtonClick(View inView){
 
         Button menuButton = (Button)inView;
 
-
         PopupMenu popupMenu = new PopupMenu(this, menuButton);
 
         for (TimeStepInfo tsi : timeStepInfos){
             popupMenu.getMenu().add(Menu.NONE,tsi.getPriority(),tsi.getPriority(),tsi.getTitle());
         }
-
 
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
@@ -340,8 +304,6 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
                     setMain(item.getItemId());
                     setNext(item.getItemId() + 1);
 
-
-
                 }
 
                 return true;
@@ -353,7 +315,6 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
     }
 
-
     private void clearMessageAlarm(){
         showMessage("",textAlarmTextView);
     }
@@ -363,5 +324,4 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
             target.setText(message);
 
     }
-
 }

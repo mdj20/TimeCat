@@ -59,7 +59,6 @@ public class TimeStepInfo implements Comparable<TimeStepInfo> , Parcelable {
         }
  
 
-
         // Data Methods
 
         public void setNotes( String n ){
@@ -108,7 +107,6 @@ public class TimeStepInfo implements Comparable<TimeStepInfo> , Parcelable {
         }
 
 
-
         // code below is required for parcelable
 
         @Override
@@ -143,9 +141,6 @@ public class TimeStepInfo implements Comparable<TimeStepInfo> , Parcelable {
             }
 
         };
-
-
-
 }
 
 

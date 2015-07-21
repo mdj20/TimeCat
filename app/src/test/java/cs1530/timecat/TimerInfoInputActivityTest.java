@@ -85,6 +85,4 @@ public class TimerInfoInputActivityTest extends ActivityInstrumentationTestCase2
         assertEquals("5", actualText);
 
     }
-
-
 }

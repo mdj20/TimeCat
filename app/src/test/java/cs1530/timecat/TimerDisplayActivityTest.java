@@ -20,6 +20,4 @@ public class TimerDisplayActivityTest extends ActivityInstrumentationTestCase2<T
         assertNotNull(check);
         assertNotNull(activity);
     }
-
-
 }

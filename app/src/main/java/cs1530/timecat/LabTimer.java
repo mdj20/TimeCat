@@ -35,10 +35,6 @@ public class LabTimer
 
     private boolean audioAlarmEnabled = true;
 
-
-
-
-
     // start time currently in seconds
     LabTimer(Integer inTime, TextView h, TextView m , TextView s, TimerDisplayActivity tda){
 
@@ -57,8 +53,6 @@ public class LabTimer
         elapsedTime = 0;
 
         updateOutputs(remainingTime);
-
-
     }
 
     public CountDownTimer start(){
@@ -75,19 +69,15 @@ public class LabTimer
             @Override
             public void onTick(long millisUntilFinished) {
 
-
                 elapsedTime++;
                 remainingTime--;
                 updateOutputs(remainingTime);
-
-
 
                 if (remainingTime == textAlarmThreshold){
 
                     sendAlarm(remainingTime);
 
                 }
-
             }
 
             @Override
@@ -101,9 +91,6 @@ public class LabTimer
         return countdowntimer;
 
     }
-
-
-
     public void stop(){
 
         running = false;
@@ -111,13 +98,10 @@ public class LabTimer
         countdowntimer.cancel();
     }
 
-
-
     // split integer representation of time (in seconds) to array of hour/min/sec
     public int[] splitTime(int inTime){
 
         int splitTimes[] = new int[3];
-
 
         splitTimes[0] = inTime/3600;
 
@@ -131,7 +115,6 @@ public class LabTimer
         return splitTimes;
     }
 
-
     // takes remaining time and updates outputs
     private void updateOutputs(int inTime){
 
@@ -143,9 +126,6 @@ public class LabTimer
 
     }
 
-
-
-
     // sets new output EditTexts
     public void setOutputTargets(TextView h, TextView m, TextView s){
 
@@ -153,20 +133,15 @@ public class LabTimer
         this.minuteEditText = m;
         this.secondEditText = s;
         updateOutputs(remainingTime);
-
-
     }
-
 
     public void sendAlarm(int timeToSend){
 
         timerDisplayActivity.alarmEvent(timeToSend);
     }
 
-
         public boolean isRunning(){
             return running;
         }
-
 
 }

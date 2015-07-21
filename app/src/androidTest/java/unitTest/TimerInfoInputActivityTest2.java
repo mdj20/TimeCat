@@ -13,7 +13,6 @@ public class TimerInfoInputActivityTest2 extends ActivityUnitTestCase<TimerInfoI
     private Intent checkIntent;
     private Button buttonDone;
 
-
     public TimerInfoInputActivityTest2() {
         super(TimerInfoInputActivity.class);
     }
@@ -21,19 +20,14 @@ public class TimerInfoInputActivityTest2 extends ActivityUnitTestCase<TimerInfoI
     protected void setUp() throws Exception {
         super.setUp();
 
-
-
-
         //setup intent from TimerInfoInputActivity class
         Intent checkIntent = new Intent(getInstrumentation().getTargetContext(), TimerInfoInputActivity.class);
         startActivity(checkIntent, null, null);
 
         //setup button
-
         buttonDone = (Button) getActivity().findViewById(R.id.buttonDone);
 
     }
-
     public void testNextActivityIntent() {
 
         startActivity(checkIntent, null, null);
@@ -46,11 +40,6 @@ public class TimerInfoInputActivityTest2 extends ActivityUnitTestCase<TimerInfoI
         assertTrue(isFinishCalled());
 
         // check if it worked
-
-        // maybe check the output string from button corresponding to method
-
-
+        // maybe check the output string from button corresponding to metho
     }
-
-
 }
