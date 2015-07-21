@@ -24,6 +24,8 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         private static final String startString = "Start Timer";
         private static final String stopString = "Stop Timer";
 
+    RecordLogger logger;
+
 
 
     ArrayList<TimeStepInfo> timeStepInfos;
@@ -63,8 +65,11 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer_display);
-        db = new DbHelper(this);
+
+
         // new code below
+
+        db = new DbHelper(this);
 
         mediaPlayer = MediaPlayer.create(getApplication(),R.raw.cat_meow);
 
@@ -99,6 +104,8 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
 
         startStop = (Button)findViewById(R.id.startStopButton);
+
+        logger = new RecordLogger();
 
 
         // initialize labTimer on main output

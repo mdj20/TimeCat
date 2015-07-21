@@ -9,77 +9,56 @@ import java.util.HashMap;
  *
  *  Created by matthew on 7/16/15.
  *
- *  This class will build the protable records for the user
+ *  This class will build the portable records for the user
  *
  */
 
 public class RecordLogger {
 
-    private static RecordLogger instance = null;
-    private HashMap<String, ArrayList<Log>> logger;
+    private ArrayList<Log> logger;
+    private String procedure = null;
     private Date timeCreated;
 
-    protected RecordLogger(){
 
-        logger = new HashMap<String,ArrayList<Log>>();
-        timeCreated = new Date();
-        // singleton constructer
+    //creates ne record requires procedure name
+    public RecordLogger(){
 
-    }
 
-    public static RecordLogger getInstance(){
-
-        if (instance == null) {
-
-            synchronized (RecordLogger.class){
-
-                if (instance == null)
-                    instance = new RecordLogger();
-
-            }
-
-        }
-
-        return instance;
-    }
-
-    public void reset(){
-
-        logger  = new HashMap<String,ArrayList<Log>>();
+        logger = new ArrayList<Log>();
         timeCreated = new Date();
 
+
     }
 
-    public void addProcedure(String s) {
 
-        if ( ! logger.containsKey(s)){
-            logger.put(s,new ArrayList<Log>());
+    //add a record to the logger. The Type defines the nature of the evelt
+    // 1 = user start
+    // 2 = user stop/pause
+    // 3 = equals stop by end of timer
+    // 4 = stop due to skip
+    public void addRecord(TimeStepInfo tsi, int type){
+
+        // if procedure name hasn't been set, set procedure field
+        if(procedure == null){
+            procedure = tsi.getProcedure();
         }
 
+        // add new record
+        logger.add(new Log(tsi,type,new Date()));
     }
 
 
-
-
-    // log subclass
-    class Log {
-
-        TimeStepInfo tsi;
-        int type;
-        Date date;
-
-
-        private Log(TimeStepInfo inTsi, int inType , Date inDate){
-
-            tsi = inTsi;
-            type = inType;
-            date = inDate;
-
-
-        }
-
+    public ArrayList<Log> getLogArrayList(){
+        return logger;
     }
 
+    public Date getTimeCreated(){
+        return timeCreated;
+    }
+
+    public String getProcedure(){
+        return procedure;
+    }
 
 
 
