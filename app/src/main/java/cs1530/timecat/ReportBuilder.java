@@ -19,6 +19,15 @@ public class ReportBuilder {
 
     // this method will create
 
+
+    public ArrayList<String> getLogStrings(){
+
+        if (logStrings == null){
+            createLogStrings();
+        }
+        return logStrings;
+    }
+
     public void createLogStrings(){
 
         logStrings = new ArrayList<String>();

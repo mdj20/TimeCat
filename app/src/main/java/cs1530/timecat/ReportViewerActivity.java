@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -57,5 +58,24 @@ public class ReportViewerActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+
+    private void inflateLogs(ReportBuilder rb , LinearLayout layout){
+
+        ArrayList<String> logStrings = rb.getLogStrings();
+
+        for (String s : logStrings){
+
+            TextView tv = new TextView(getApplicationContext());
+
+            tv.setText(s);
+
+            layout.addView(tv);
+
+        }
+
+
     }
 }
