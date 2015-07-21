@@ -40,9 +40,7 @@ public class ReportEmailSender {
         emailIntent.putExtra(Intent.EXTRA_SUBJECT , this.subject);
         emailIntent.putExtra(Intent.EXTRA_TEXT , this.body);
 
-        try {
 
-        }
 
         return result;
     }

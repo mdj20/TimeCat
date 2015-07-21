@@ -15,7 +15,7 @@ import cs1530.timecat.R;
 public class ReportViewerActivity extends ActionBarActivity {
 
 
-    private final String logsString = "logs";
+    private final String logid = "logid";
     private ReportBuilder builder;
 
     @Override
@@ -27,13 +27,11 @@ public class ReportViewerActivity extends ActionBarActivity {
 
         Intent intent = getIntent();
 
-        ArrayList<Log> logs = intent.getParcelableArrayListExtra(logsString);
+        ArrayList<Log> logs = intent.getParcelableArrayListExtra(logid);
 
         LinearLayout reportLinearLayout = (LinearLayout)findViewById(R.id.reportLinearLayout);
 
         builder = new ReportBuilder(logs);
-
-
 
 
     }

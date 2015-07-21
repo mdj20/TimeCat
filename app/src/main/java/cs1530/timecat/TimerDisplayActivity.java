@@ -23,6 +23,7 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         private static final String timeValuesID = "procedureBuilder";
         private static final String startString = "Start Timer";
         private static final String stopString = "Stop Timer";
+        private static final String logid = "logid";
 
     RecordLogger logger;
 
@@ -316,7 +317,7 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
     }
 
     private void clearMessageAlarm(){
-        showMessage("",textAlarmTextView);
+        showMessage("", textAlarmTextView);
     }
 
     private void showMessage(String message, TextView target){
@@ -324,4 +325,21 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
             target.setText(message);
 
     }
+
+    //method will launch the log display activity
+    private void launchLogDisplayActivity(RecordLogger inLogger){
+
+        inLogger.finishLogger();
+
+        ArrayList<Log> logArrayList = inLogger.getLogArrayList();
+
+        Intent logDisplayActivityIntent = new Intent(this,ReportViewerActivity.class);
+
+        logDisplayActivityIntent.putExtra(logid,logArrayList);
+
+        startActivity(logDisplayActivityIntent);
+
+
+    }
 }
+
