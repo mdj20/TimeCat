@@ -26,9 +26,18 @@ public class LogTest extends TestCase {
     ArrayList<Date> endDates ;
 
 
+    /*
 
+    Each test starts with the same type of test object initialization
+
+     */
+
+
+    // checks if TimeStepInfos are correct
     public void testGetTimeStepInfo() throws Exception {
 
+
+        // initialize objects
 
         int n = 100;
         int startMultiplier = 5000;
@@ -42,12 +51,13 @@ public class LogTest extends TestCase {
 
         logs = finishLogs(logs,endDates,n);
 
+        // run test
         for (int i = 0 ; i < n ; i++) {
 
             Date end = endDates.get(i);
             Date start = startDates.get(i);
 
-            assertEquals((logs.get(i)).getInterval(), (end.getTime() - start.getTime()) * 1000);
+            assertEquals(testTSIs.get(i),logs.get(i).getTimeStepInfo());
 
         }
 
@@ -55,8 +65,6 @@ public class LogTest extends TestCase {
     }
 
     public void testGetTimeStarted() throws Exception {
-
-
 
 
         int n = 100;
@@ -79,7 +87,7 @@ public class LogTest extends TestCase {
             Date start = startDates.get(i);
 
 
-            assertEquals((logs.get(i)).getInterval(), (end.getTime() - start.getTime()) * 1000);
+            assertEquals(startDates.get(i),logs.get(i).getTimeStarted());
 
         }
 
@@ -100,6 +108,12 @@ public class LogTest extends TestCase {
 
         logs = finishLogs(logs,endDates,n);
 
+        for (int i = 0 ; i < n ; i++) {
+
+
+            assertEquals(endDates.get(i),logs.get(i).getTimeFinished());
+
+        }
 
 
     }
@@ -133,7 +147,7 @@ public class LogTest extends TestCase {
 
     public void testIsFinished() throws Exception {
 
-        ;
+
         int n = 100;
         int startMultiplier = 5000;
         int endMultiplier = 2;
@@ -148,11 +162,10 @@ public class LogTest extends TestCase {
 
         for (int i = 0 ; i < n ; i++) {
 
-            Date end = endDates.get(i);
-            Date start = startDates.get(i);
 
 
-            assertEquals((logs.get(i)).getInterval(), (end.getTime() - start.getTime()) * 1000);
+
+            assertTrue(logs.get(i).isFinished());
 
         }
 
@@ -160,18 +173,7 @@ public class LogTest extends TestCase {
 
     public void testSetTimeFinished() throws Exception {
 
-        int n = 100;
-        int startMultiplier = 5000;
-        int endMultiplier = 2;
-
-
-        ArrayList<TimeStepInfo> testTSIs  = initTimeStepInfos(n);
-        ArrayList<Date> startDates = initDates(startMultiplier,n);
-        ArrayList<Date> endDates = initDates(endMultiplier, n);
-
-        ArrayList<Log> logs = initLogs(testTSIs,startDates,n);
-
-        logs = finishLogs(logs,endDates,n);
+        // testGetTimeFinished is equal
 
 
     }

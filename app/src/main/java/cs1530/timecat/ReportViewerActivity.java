@@ -80,8 +80,10 @@ public class ReportViewerActivity extends ActionBarActivity {
     // this class will set up linear View with records
     private void inflateLogs(ReportBuilder rb , LinearLayout layout){
 
+        // retreive logs
         ArrayList<String> logStrings = rb.getLogStrings();
 
+        // new liner layout
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT );
 
         for (String s : logStrings){
@@ -98,14 +100,17 @@ public class ReportViewerActivity extends ActionBarActivity {
     }
 
 
+    // send email report.
     public void emailButtonPress(View view){
 
+        //text view for sending id
        EditText emailEditText = (EditText)findViewById(R.id.emailEditText);
 
+        // checks if null
         if (emailEditText.getText() != null){
 
 
-
+            // subject
             String subject = "TIMECAT REPORT";
 
 
@@ -115,8 +120,8 @@ public class ReportViewerActivity extends ActionBarActivity {
             // specifies the type of message, will tell android to ask user for specific mail client
             emailIntent.setType("message/rfc822");
 
+            // build report for email
             StringBuilder sb = new StringBuilder();
-
             for (String s :builder.getLogStrings()){
 
                 sb.append(s+"\n");
@@ -129,6 +134,7 @@ public class ReportViewerActivity extends ActionBarActivity {
             emailIntent.putExtra(Intent.EXTRA_SUBJECT , subject);
             emailIntent.putExtra(Intent.EXTRA_TEXT , sb.toString());
 
+            // try to send email
             try {
                 startActivity(emailIntent.createChooser(emailIntent,"SENDING EMAIL"));
             }
