@@ -100,7 +100,6 @@ public class ReportViewerActivity extends ActionBarActivity {
 
         LinearLayout layout = new LinearLayout(getApplicationContext());
 
-
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT );
 
         EditText emailSpace = new EditText( getApplicationContext() );
