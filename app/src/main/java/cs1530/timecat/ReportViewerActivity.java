@@ -13,8 +13,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Date;
+
+import javax.security.auth.Subject;
 
 import cs1530.timecat.R;
 
@@ -24,8 +28,6 @@ public class ReportViewerActivity extends ActionBarActivity {
     // required for intent data retrieval
     private final String logid = "logid";
     private ReportBuilder builder;
-
-    PopupWindow emailPopupWindow;
 
     LinearLayout reportLinearLayout;
 
@@ -98,21 +100,44 @@ public class ReportViewerActivity extends ActionBarActivity {
 
     public void emailButtonPress(View view){
 
-        LinearLayout layout = new LinearLayout(getApplicationContext());
+       EditText emailEditText = (EditText)findViewById(R.id.emailEditText);
 
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT );
+        if (emailEditText.getText() != null){
 
-        EditText emailSpace = new EditText( getApplicationContext() );
-        Button button = new Button(getApplicationContext());
 
-        layout.addView(emailSpace,layoutParams);
-        layout.addView(button,layoutParams);
 
-        emailPopupWindow = new PopupWindow(layout);
+            String subject = "TIMECAT REPORT";
 
-        emailPopupWindow.setContentView(layout);
 
-        emailPopupWindow.showAsDropDown(reportLinearLayout);
+            // initialize intent
+            Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+            // specifies the type of message, will tell android to ask user for specific mail client
+            emailIntent.setType("message/rfc822");
+
+            StringBuilder sb = new StringBuilder();
+
+            for (String s :builder.getLogStrings()){
+
+                sb.append(s+"\n");
+
+            }
+
+
+            //add string values to intent
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, emailEditText.getText());
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT , subject);
+            emailIntent.putExtra(Intent.EXTRA_TEXT , sb.toString());
+
+            try {
+                startActivity(emailIntent.createChooser(emailIntent,"SENDING EMAIL"));
+            }
+            catch (Exception e) {
+                Toast.makeText(this, "Error sending email ", Toast.LENGTH_SHORT).show();
+            }
+
+
+        }
 
     }
 

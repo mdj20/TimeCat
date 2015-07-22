@@ -5,11 +5,18 @@ import android.media.MediaPlayer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.format.Time;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -55,6 +62,8 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
     Button startStop;
 
     private DbHelper db;
+
+    PopupWindow popupWindow;
 
     // boiler plate code
     @Override
@@ -106,6 +115,8 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         if ((indexOfCurrentTask+1) < timeStepInfos.size()){
             labTimerNext = initTimer(timeStepInfos.get(indexOfCurrentTask+1),nextHour,nextMinute,nextSecond,nextTaskNameOutput);
         }
+
+        initPopupWindow();
     }
 
 
@@ -287,6 +298,12 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
     // mthod that creates the menu for step skipping
     public void menuButtonClick(View inView){
 
+        Button but = (Button) inView;
+
+        popupWindow.showAtLocation(but, Gravity.CENTER,0,0);
+
+
+        /*
         Button menuButton = (Button)inView;
 
         PopupMenu popupMenu = new PopupMenu(this, menuButton);
@@ -321,6 +338,8 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
         popupMenu.show();
 
+
+*/
     }
 
     private void clearMessageAlarm(){
@@ -348,5 +367,91 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
 
     }
+
+    // inital popup window
+    private void initPopupWindow(){
+
+
+
+        LinearLayout linearLayout = new LinearLayout(getApplicationContext());
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+        ScrollView scrollableLayout = new ScrollView(getApplicationContext());
+        scrollableLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        RelativeLayout relativeLayout = new RelativeLayout(getApplicationContext());
+        relativeLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        ArrayList<Button> buttons = new ArrayList<Button>();
+
+        for (int i = 0 ; i < timeStepInfos.size(); i++ ){
+
+            //set button attributes
+            Button temp = new Button(getApplicationContext());
+            temp.setId(i);
+
+            temp.setText(timeStepInfos.get(i).getTitle());
+
+
+
+            //set onclick listener for each button
+            temp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    if ( indexOfCurrentTask != v.getId()) {
+
+                        // pointer to current Lab timer. Must be stopped manually.
+                        if ( labTimerMain.isRunning() == true) {
+                            labTimerMain.stop();
+                        }
+
+                        clearMessageAlarm();
+                        setMain(v.getId());
+                        setNext(v.getId() + 1);
+
+                    }
+                    popupWindow.dismiss();
+
+                }
+            });
+
+            // add button to arraylist
+            buttons.add(temp);
+
+            //add buttonto layout
+            linearLayout.addView(temp);
+
+        }
+
+
+        // initat calcle button
+        Button cancleButton = new Button(getApplicationContext());
+        cancleButton.setText("Cancel Skip");
+        cancleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // clear menu
+                popupWindow.dismiss();
+            }
+        });
+
+        buttons.add(cancleButton);
+        linearLayout.addView(cancleButton);
+
+        scrollableLayout.addView(linearLayout);
+
+        relativeLayout.addView(scrollableLayout);
+
+
+        popupWindow = new PopupWindow(relativeLayout,500,500);
+
+        popupWindow.setContentView(relativeLayout);
+
+
+    }
+
+
 }
 
