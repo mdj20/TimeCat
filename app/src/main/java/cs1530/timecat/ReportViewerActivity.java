@@ -17,6 +17,7 @@ import cs1530.timecat.R;
 public class ReportViewerActivity extends ActionBarActivity {
 
 
+    // required for intent data retrieval
     private final String logid = "logid";
     private ReportBuilder builder;
 
@@ -26,15 +27,19 @@ public class ReportViewerActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_viewer);
 
-
+        //get intent from previous
         Intent intent = getIntent();
 
+        // retrieve Logs objects
         ArrayList<Log> logs = intent.getParcelableArrayListExtra(logid);
 
+        //init liner layout, use to list log
         LinearLayout reportLinearLayout = (LinearLayout)findViewById(R.id.reportLinearLayout);
 
+        // create reports builder
         builder = new ReportBuilder(logs);
 
+        // call method to creat strings and display
         inflateLogs(builder,reportLinearLayout);
 
     }
@@ -62,7 +67,7 @@ public class ReportViewerActivity extends ActionBarActivity {
     }
 
 
-
+    // this class will
     private void inflateLogs(ReportBuilder rb , LinearLayout layout){
 
         ArrayList<String> logStrings = rb.getLogStrings();

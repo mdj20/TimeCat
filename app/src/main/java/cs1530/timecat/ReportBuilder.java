@@ -49,10 +49,11 @@ public class ReportBuilder {
 
             // minutes
             time = time % 3600;
-            sb.append(time%60+ " : ");
+            sb.append(time/60+ " : ");
+
 
             //seconds
-            sb.append(time);
+            sb.append(time%60);
 
             // end record with space
             sb.append("\n");
