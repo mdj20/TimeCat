@@ -295,7 +295,7 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
     }
 
-    // mthod that creates the menu for step skipping
+    // mthod that shows menu for skipping 
     public void menuButtonClick(View inView){
 
         Button but = (Button) inView;
@@ -303,43 +303,6 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         popupWindow.showAtLocation(but, Gravity.CENTER,0,0);
 
 
-        /*
-        Button menuButton = (Button)inView;
-
-        PopupMenu popupMenu = new PopupMenu(this, menuButton);
-
-
-
-        for (TimeStepInfo tsi : timeStepInfos){
-            popupMenu.getMenu().add(Menu.NONE,tsi.getPriority(),tsi.getPriority(),tsi.getTitle());
-        }
-
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            public boolean onMenuItemClick(MenuItem item) {
-
-
-                if ( indexOfCurrentTask != item.getItemId()) {
-
-                    // pointer to current Lab timer. Must be stopped manually.
-                    if ( labTimerMain.isRunning() == true) {
-                        labTimerMain.stop();
-                    }
-
-                    clearMessageAlarm();
-                    setMain(item.getItemId());
-                    setNext(item.getItemId() + 1);
-
-                }
-
-                return true;
-            }
-        });
-
-
-        popupMenu.show();
-
-
-*/
     }
 
     private void clearMessageAlarm(){
@@ -372,6 +335,7 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
     private void initPopupWindow(){
 
 
+        // need 3 layouts for scrolling popup window Relative(Scrollable(Linear()))
 
         LinearLayout linearLayout = new LinearLayout(getApplicationContext());
         linearLayout.setOrientation(LinearLayout.VERTICAL);
@@ -382,14 +346,18 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
         RelativeLayout relativeLayout = new RelativeLayout(getApplicationContext());
         relativeLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
+        // arraylist of buttons
         ArrayList<Button> buttons = new ArrayList<Button>();
 
         for (int i = 0 ; i < timeStepInfos.size(); i++ ){
 
             //set button attributes
             Button temp = new Button(getApplicationContext());
+
+            // id is priority of step
             temp.setId(i);
 
+            //name of step
             temp.setText(timeStepInfos.get(i).getTitle());
 
 
@@ -407,11 +375,14 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
                             labTimerMain.stop();
                         }
 
+                        // changes
                         clearMessageAlarm();
                         setMain(v.getId());
                         setNext(v.getId() + 1);
 
                     }
+
+                    // dismiss popup window
                     popupWindow.dismiss();
 
                 }
@@ -437,16 +408,19 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
             }
         });
 
+        // adds cancle button
         buttons.add(cancleButton);
         linearLayout.addView(cancleButton);
 
+        //adds viewgroup
         scrollableLayout.addView(linearLayout);
 
+        // adds viewgroup
         relativeLayout.addView(scrollableLayout);
 
 
+        // inits popup window
         popupWindow = new PopupWindow(relativeLayout,500,500);
-
         popupWindow.setContentView(relativeLayout);
 
 
