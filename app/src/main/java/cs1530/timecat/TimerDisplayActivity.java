@@ -291,6 +291,8 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
         PopupMenu popupMenu = new PopupMenu(this, menuButton);
 
+
+
         for (TimeStepInfo tsi : timeStepInfos){
             popupMenu.getMenu().add(Menu.NONE,tsi.getPriority(),tsi.getPriority(),tsi.getTitle());
         }

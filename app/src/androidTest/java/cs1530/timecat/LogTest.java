@@ -2,6 +2,7 @@ package cs1530.timecat;
 
 import junit.framework.TestCase;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -28,7 +29,7 @@ public class LogTest extends TestCase {
 
     public void testGetTimeStepInfo() throws Exception {
 
-        String procedure = "TEST PROCEDURE";
+
         int n = 100;
         int startMultiplier = 5000;
         int endMultiplier = 2;
@@ -41,9 +42,14 @@ public class LogTest extends TestCase {
 
         logs = finishLogs(logs,endDates,n);
 
+        for (int i = 0 ; i < n ; i++) {
 
-            assertEquals((logs.get(i)).getInterval(), ( end.getTime() - start.getTime())*1000);
+            Date end = endDates.get(i);
+            Date start = startDates.get(i);
 
+            assertEquals((logs.get(i)).getInterval(), (end.getTime() - start.getTime()) * 1000);
+
+        }
 
 
     }
@@ -51,7 +57,7 @@ public class LogTest extends TestCase {
     public void testGetTimeStarted() throws Exception {
 
 
-        String procedure = "TEST PROCEDURE";
+
 
         int n = 100;
         int startMultiplier = 5000;
@@ -67,12 +73,24 @@ public class LogTest extends TestCase {
 
 
 
+        for (int i = 0 ; i < n ; i++) {
 
-        assertEquals();
+            Date end = endDates.get(i);
+            Date start = startDates.get(i);
+
+
+            assertEquals((logs.get(i)).getInterval(), (end.getTime() - start.getTime()) * 1000);
+
+        }
 
     }
 
     public void testGetTimeFinished() throws Exception {
+
+
+        int n = 100;
+        int startMultiplier = 5000;
+        int endMultiplier = 2;
 
         ArrayList<TimeStepInfo> testTSIs  = initTimeStepInfos(n);
         ArrayList<Date> startDates = initDates(startMultiplier,n);
@@ -88,6 +106,11 @@ public class LogTest extends TestCase {
 
     public void testGetInterval() throws Exception {
 
+
+        int n = 100;
+        int startMultiplier = 5000;
+        int endMultiplier = 2;
+
         ArrayList<TimeStepInfo> testTSIs  = initTimeStepInfos(n);
         ArrayList<Date> startDates = initDates(startMultiplier,n);
         ArrayList<Date> endDates = initDates(endMultiplier, n);
@@ -95,11 +118,26 @@ public class LogTest extends TestCase {
         ArrayList<Log> logs = initLogs(testTSIs,startDates,n);
 
         logs = finishLogs(logs,endDates,n);
+
+        for (int i = 0 ; i < n ; i++) {
+
+            Date end = endDates.get(i);
+            Date start = startDates.get(i);
+
+
+            assertEquals((logs.get(i)).getInterval(), (end.getTime() - start.getTime()) * 1000);
+
+        }
 
     }
 
     public void testIsFinished() throws Exception {
 
+        ;
+        int n = 100;
+        int startMultiplier = 5000;
+        int endMultiplier = 2;
+
         ArrayList<TimeStepInfo> testTSIs  = initTimeStepInfos(n);
         ArrayList<Date> startDates = initDates(startMultiplier,n);
         ArrayList<Date> endDates = initDates(endMultiplier, n);
@@ -108,9 +146,24 @@ public class LogTest extends TestCase {
 
         logs = finishLogs(logs,endDates,n);
 
+        for (int i = 0 ; i < n ; i++) {
+
+            Date end = endDates.get(i);
+            Date start = startDates.get(i);
+
+
+            assertEquals((logs.get(i)).getInterval(), (end.getTime() - start.getTime()) * 1000);
+
+        }
+
     }
 
     public void testSetTimeFinished() throws Exception {
+
+        int n = 100;
+        int startMultiplier = 5000;
+        int endMultiplier = 2;
+
 
         ArrayList<TimeStepInfo> testTSIs  = initTimeStepInfos(n);
         ArrayList<Date> startDates = initDates(startMultiplier,n);
@@ -163,9 +216,12 @@ public class LogTest extends TestCase {
 
     public ArrayList<TimeStepInfo> initTimeStepInfos(int n){
 
+        ArrayList<TimeStepInfo> retTSI = new ArrayList<TimeStepInfo>();
 
         for (int i = 0 ; i < n ; i ++ ) {
             testTSIs.add(new TimeStepInfo(100 * i, i, procedure, "name", "info"));
         }
+
+        return retTSI;
     }
 }
