@@ -6,8 +6,12 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -20,6 +24,10 @@ public class ReportViewerActivity extends ActionBarActivity {
     // required for intent data retrieval
     private final String logid = "logid";
     private ReportBuilder builder;
+
+    PopupWindow emailPopupWindow;
+
+    LinearLayout reportLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +42,7 @@ public class ReportViewerActivity extends ActionBarActivity {
         ArrayList<Log> logs = intent.getParcelableArrayListExtra(logid);
 
         //init liner layout, use to list log
-        LinearLayout reportLinearLayout = (LinearLayout)findViewById(R.id.reportLinearLayout);
+        reportLinearLayout = (LinearLayout)findViewById(R.id.reportLinearLayout);
 
         // create reports builder
         builder = new ReportBuilder(logs);
@@ -67,7 +75,7 @@ public class ReportViewerActivity extends ActionBarActivity {
     }
 
 
-    // this class will
+    // this class will set up linear View with records
     private void inflateLogs(ReportBuilder rb , LinearLayout layout){
 
         ArrayList<String> logStrings = rb.getLogStrings();
@@ -86,4 +94,27 @@ public class ReportViewerActivity extends ActionBarActivity {
 
 
     }
+
+
+    public void emailButtonPress(View view){
+
+        LinearLayout layout = new LinearLayout(getApplicationContext());
+
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT );
+
+        EditText emailSpace = new EditText( getApplicationContext() );
+        Button button = new Button(getApplicationContext());
+
+        layout.addView(emailSpace,layoutParams);
+        layout.addView(button,layoutParams);
+
+        emailPopupWindow = new PopupWindow(layout);
+
+        emailPopupWindow.setContentView(layout);
+
+        emailPopupWindow.showAsDropDown(reportLinearLayout);
+
+    }
+
 }

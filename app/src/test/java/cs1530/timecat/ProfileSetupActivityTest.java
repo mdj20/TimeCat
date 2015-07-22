@@ -36,6 +36,12 @@ public class ProfileSetupActivityTest extends TestCase {
         result = profilesetupactivity.containsNullValueString(goodCase);
         assertEquals(false,result);
 
+
+
+
+
+
+
     }
 }
 
