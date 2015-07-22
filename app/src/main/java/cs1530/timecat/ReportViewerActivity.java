@@ -1,10 +1,12 @@
 package cs1530.timecat;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -33,6 +35,7 @@ public class ReportViewerActivity extends ActionBarActivity {
 
         builder = new ReportBuilder(logs);
 
+        inflateLogs(builder,reportLinearLayout);
 
     }
 
@@ -64,13 +67,15 @@ public class ReportViewerActivity extends ActionBarActivity {
 
         ArrayList<String> logStrings = rb.getLogStrings();
 
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT );
+
         for (String s : logStrings){
 
             TextView tv = new TextView(getApplicationContext());
 
             tv.setText(s);
 
-            layout.addView(tv);
+            layout.addView(tv,layoutParams);
 
         }
 

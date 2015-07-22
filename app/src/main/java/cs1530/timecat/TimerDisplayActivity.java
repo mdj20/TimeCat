@@ -209,12 +209,13 @@ public class TimerDisplayActivity extends ActionBarActivity implements EventList
 
         } else {
 
+
+
             // end timer
             currentTask = null;
             // set as null
 
-            //ADD return to the begining  code
-
+            launchLogDisplayActivity(logger);
         }
 
         return result;

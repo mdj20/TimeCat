@@ -31,17 +31,33 @@ public class ReportBuilder {
     public void createLogStrings(){
 
         logStrings = new ArrayList<String>();
-
         StringBuilder sb = new StringBuilder();
 
         for (Log l : logs){
 
+            long time = l.getInterval();
+
+
             sb.append( l.getTimeStepInfo().getTitle()+
                     ":\nSTARTED @ : "+l.getTimeStarted()+
                             "\n" + "FINISHED @ : "+l.getTimeFinished()+
-                            "\n DURATION IS SECONDS : "+l.getInterval()
+                            "\nDURATION: "
                         );
 
+            // hours
+            sb.append(time/3600+" : ");
+
+            // minutes
+            time = time % 3600;
+            sb.append(time%60+ " : ");
+
+            //seconds
+            sb.append(time);
+
+            // end record with space
+            sb.append("\n");
+
+            // create log string
             logStrings.add(sb.toString());
 
             //reset string builder

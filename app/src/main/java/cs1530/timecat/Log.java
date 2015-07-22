@@ -33,6 +33,7 @@ public class Log implements Parcelable {
             this.timeStarted = new Date(in.readLong());
             this.timeFinished = new Date(in.readLong());
             this.interval = in.readLong();
+            this.finished = (in.readByte() == 0)?false:true;
         }
 
         public TimeStepInfo getTimeStepInfo(){
@@ -47,8 +48,9 @@ public class Log implements Parcelable {
             return timeFinished;
         }
 
+        // returns interval in seconds
         public long getInterval(){
-            return interval;
+            return (interval/1000);
         }
 
         public boolean isFinished(){
